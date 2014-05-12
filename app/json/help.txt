@@ -1,0 +1,47 @@
+Bonjour !
+
+Comme promis, je vous fais parvenir un exemple de fichier JSON que l'on vous demande de traiter. 
+Il est le résultat de l'analyse de 2 projets Open Source, et des compétences suivantes : 
+-> éditions de fichiers Java, Php, Html, Css et javascript.  (Il se peut que certaines compétences ne soient d'ailleurs jamais exprimées)
+
+Quelques explications sur les 3 principales parties: 
+
+Les dépôts
+On a un ensemble de développeurs pour chaque dépôt.
+On suppose pour le moment que les développeurs travaillent sur un seul dépôt. Si plus tard le temps nous le permet, nous vous demanderons de traiter cet aspect de fusion d'identités (et donc d'aggrégation des compétences), mais on va mettre de côté cela pour le moment. 
+
+Les compétences 
+Il existe deux niveaux de compétences. Il y a les domaines de compétences et les compétences concrètes. Les domaines sont abstraits et sont utilisés pour rassembler un ensemble de compétences concrètes. Ex ici :
+-> domaine de compétences "web" , 4 compétences concrètes (éditions de fichiers js, php, html & css).
+C'est le modèle de données que nous utilisions jusqu'à présent. L'idéal serait donc de prendre en compte les domaines de compétences dans les rapports, chose dont nous pourrons reparler dans la prochaine réunion (il se peut qu'on omette ce point, on en discutera avec Jean-Rémy Falleri).
+Donc ce qui nous intéresse ici surtout, ce sont les compétences concrètes.     
+Tout type de compétence possède un identifiant unique.
+
+Les expressions de compétences 
+On constate que les expressions de compétences sont une collections d'éléments de la forme suivante : 
+     "id_concrete_aptitude": 843576936,
+                    "concrete_expressions": [
+                        {
+                            "repo": 3,
+                            "dev": 15,
+                            "scores_times": [
+                                "2_1328124226",
+                                "9_1328197175",
+                                "4_1367530092"
+                            ]
+                        },
+id_concrete_aptitude : l'id de la compétence (ou aptitude, ce sont les mêmes termes en fait)
+repo : indique l'id du dépôt où a été exprimé la compétence 
+dev : numéro du développeur
+scores_times : une collections d'éléments sous la forme "score_timestamp", signifiant le nombre d'occurances de l'expression à un timestamp donné (et donc un commit donné). Le nombre d'expressions est aussi appelé "score" dans notre cas. Dans cet exemple, le developpeur n°15 a exprimé la compétence 843576936 lors de 3 commits, 2 fois lors du 1er, 9 fois lors du 2eme et 4 fois lors du 3ème.
+
+Voilà, je pense que c'est un point de départ pour vous qui est pas mal. Il est possible de faire évoluer ce format sans problèmes, si vous avez des suggestions je suis preneur. Je peux faire tourner sur + de compétences, + de projets, ça ne prend pas beaucoup de temps donc n'hésitez pas à me demander, et on pourra donc peaufiner des petits détails la prochaine fois.
+
+(Notez aussi que je n'ai pas changé le nom des développeurs, ni leur adresse email. En fait, il faudra penser à le faire au moment d'écrire le rapport surtout et lors de démos en public).
+
+Ah, j'allais oublier le lien du fichier... :)
+http://www.labri.fr/perso/cteyton/xtic/report.json
+
+Bonne soirée,
+
+Cédric

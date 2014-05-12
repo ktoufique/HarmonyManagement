@@ -1,0 +1,177 @@
+/*Modifications sur le calendrier */
+
+div.col-md-6{
+    width:30%;
+    margin-left:110px;
+    margin-top:50px;
+}
+
+
+
+/* fin des modifications sur le calendrier */
+
+/* modif pour le positionnement du titre */
+h1.ng-binding{
+    margin-bottom:60px;
+}
+
+
+/* fin des modifs pour le positionnement du titre */
+
+/* Positionnement de "Choix de la période" */
+h3#periodChoiceTitle{
+    width:300px;
+    position:relative;
+    left:300px;
+    margin-bottom:50px;
+}
+
+/* fin postionnement de "Choix de la liberté" */
+
+div#recap{
+    
+    width:50%;
+    margin-left:485px;
+    margin-top:90px;
+}
+
+/*pre#firstDate{
+    width:400px;
+}*/
+
+
+pre#secondDate{
+    margin-top:30px;
+}
+
+div#configurationSearch.ng-scope{
+    margin-top:40px;
+    height:200px;
+    margin-bottom:200px;
+}
+
+
+
+
+
+
+div#buttons{
+    width:200px;
+    height:200px;
+    margin-left:135px;
+}
+
+button#developButton.btn.btn-default{
+    float:left;
+    width:183px;
+}
+
+
+
+button#compButton.btn.btn-default{
+    margin-top:49px;
+    margin-bottom:49px;
+    float:left;
+    width:183px;
+}
+
+button#projectButton.btn.btn-default{
+    top:150px;
+    float:left;
+    width:183px;
+}
+
+/* Pour la récapitulation "selected()" */
+
+ /*div#recapSearch{
+    background:pink;
+    position:relative;
+    left:300px;
+    top:-150px;
+    height:100px;
+    width:300px;
+    //float:top;
+}/*
+
+
+/* Les propositions pour le nombre de développeurs à afficher */
+div#choices{
+    position:relative;
+    left:400px;
+    top:-200px;
+    height:120px;
+    width:700px;
+}
+
+p#textChoice{
+    //margin-top:30px;
+    margin-bottom:20px;
+    font-size:15px;
+    left:200px;
+}
+
+div#choiceInput0{
+    font-size:15px;
+    position:relative;
+    left:209px;
+    width:50px;
+}
+
+div#choiceInput1{
+    font-size:15px;
+    position:relative;
+    left:320px;
+    bottom:21px;
+    width:30px;
+}
+
+div#choiceInput2{
+    font-size:15px;
+    position:relative;
+    left:420px;
+    bottom:42px;
+    width:35px;
+}
+
+div#choiceInput3{
+    font-size:15px;
+    position:relative;
+    left:220px;
+    bottom:20px;
+    width:35px;
+}
+
+div#choiceInput4{
+    font-size:15px;
+    position:relative;
+    left:320px;
+    bottom:40px;
+    width:35px;
+}
+
+
+div#choiceInput5{
+    font-size:15px;
+    position:relative;
+    left:420px;
+    bottom:60px;
+    width:35px;
+}
+
+/*div#valider{
+    font-size:15px;
+   // position:relative;
+    left:300px;
+    top:8px;
+    width:86px;
+    background:darkorange;
+}*/
+
+
+input#but{
+    font-size:15px;
+    position:relative;
+    right:50px;
+    width:95px;
+    height:30px;
+}

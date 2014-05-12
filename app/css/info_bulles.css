@@ -1,0 +1,35 @@
+
+a.info {
+    font-size:15px;
+    position: relative;
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px gray dotted; /* On souligne le texte. */
+}
+a.info span {
+    display: none; /* On masque l'infobulle. */
+}
+a.info:hover {
+    background: none; /* Correction d'un bug d'Internet Explorer. */
+    z-index: 500; /* On définit une valeur pour l'ordre d'affichage. */
+
+    cursor: help; /* On change le curseur par défaut par un curseur d'aide. */
+}
+a.info:hover span {
+    // font-size:15px;
+    display: inline; /* On affiche l'infobulle. */
+    position: absolute;
+
+    white-space: nowrap; /* On change la valeur de la propriété white-space pour qu'il n'y ait pas de retour à la ligne non désiré. */
+
+    top: 20px; /* On positionne notre infobulle. */
+    left: 10px;
+
+    background: ivory;
+
+    color: lightsleetblue;
+    padding: 3px;
+
+    border: 1px solid gray;
+    border-left: 4px solid gray;
+}

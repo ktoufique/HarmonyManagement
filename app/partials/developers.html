@@ -1,0 +1,20 @@
+<div>
+    <h1 class="">All developers</h1>
+</div>
+
+
+<div class="col-md-10">
+<!--<li class="animate-repeat" ng-repeat="name in devAll | filter:q" ng-click="go(name.type)" data-ng-submit="go(name.type)" data-ng-init="go(name.type)"> -->
+
+<ul>
+	<input type="search" ng-model="q"  placeholder="select a developer" />
+    <li ng-repeat="name in devAll | filter:q" >
+    	<button href="/partials/home.html">{{name.name}}</button>
+    </li>
+</ul>
+	 <!--<a href="#/developer">{{name.name}}</a> 
+	  <button ng-click="go(name.type)">{{name.name}}</button> developer/name.id-->
+<!--</li> -->
+{{test}}
+</div>
+

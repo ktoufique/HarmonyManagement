@@ -1,0 +1,183 @@
+<div>
+  <h1 class="">{{titre}}</h1>
+</div>
+
+
+
+<div ng-controller="configurationController">
+  <div class="row">
+    <!--<h3 id="periodChoiceTitle">Choix de la période</h3>-->
+    <div class="col-md-6">
+
+
+      <h4>The project beginning</h4>
+      <p class="input-group">
+	<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt1" is-open="opened1"  datepicker-options="dateOptions" ng-required="true" close-text="Close" id="hu1">
+	<span class="input-group-btn">
+	  <button class="btn btn-default" ng-click="open1($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	</span>
+      </p>
+
+
+      <h4>The project end</h4>
+      <p class="input-group">
+	<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt2" is-open="opened2"  datepicker-options="dateOptions" ng-required="true" close-text="Close" id="hu2">
+	<span class="input-group-btn">
+	  <button class="btn btn-default" ng-click="open2($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	</span>
+      </p>
+    </div>
+    
+
+    <div id="recap">
+      <pre id="firstDate"> The project begins <em id="firstDate">{{dt1 | date:'fullDate' }}</em></pre>
+      <pre id="secondDate"> The project ends <em>{{dt2 | date:'fullDate' }}</em></pre>
+    </div>
+    
+  </div>
+  
+  
+  
+  
+
+</div>
+
+
+<div ng-controller="configurationController" id="configurationSearch">
+  <div id="buttons">
+    <script type="text/ng-template" id="myModalContentDev.html">
+      <div class="modal-header">
+	<h4>Choose the developers</h4>
+	<form>
+	  <input type="text" ng-model="searchDev" placeholder="Choose in the list below" autofocus>
+	  <button class="btn-primary" ng-click="selectAllItem(0)"> All </button>
+	  <button class="btn-primary" ng-click="selectNoneItem(0)"> None </button>
+	  <span>{{remaining(0)}}/{{devs.length}} developers chosen</span>
+	</form>
+      </div>
+      <div class="modal-body" ng-mousemove="devJson()">
+	<ul data-ng-init="devJson()" >
+	  <ul>
+	    <li class="dev" ng-repeat="dev in devs | filter:searchDev | orderBy:['text'] ">
+	      <input type="checkbox" ng-model="dev.done">
+	      <span  class="done-{{dev.done}}">{{dev.text}}</span>
+	    </li>
+	  </ul>
+	</ul>
+      </div>
+      <div class="modal-footer">
+	<button class="btn btn-primary" ng-click="okItem(0)">OK</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+      </div>
+    </script>
+
+    <button id="developButton" class="btn btn-default" ng-click="openDev()">Pick the developers</button>
+
+    <script type="text/ng-template" id="myModalContentComp.html">
+      <div class="modal-header">
+	<h4>Choose the skills</h4>
+	<form>
+	  <input type="text" ng-model="searchComp" placeholder="Chercher dans la liste" autofocus>
+	  <button class="btn-primary" ng-click="selectAllItem(1)"> All </button>
+	  <button class="btn-primary" ng-click="selectNoneItem(1)"> None </button>
+	  <span>{{remaining(1)}}/{{comps.length}} skills chosen</span>
+	</form>
+      </div>
+      <div class="modal-body" ng-mouseover="compJson()">
+	<ul data-ng-init="compJson()" >
+	  <ul>
+	    <li class="comp" ng-repeat="comp in comps | filter:searchComp | orderBy:['text'] ">
+	      <input type="checkbox" ng-model="comp.done">
+	      <span  class="done-{{comp.done}}">{{comp.text}}</span>
+	    </li>
+	  </ul>
+	</ul>
+      </div>
+      <div class="modal-footer">
+	<button class="btn btn-primary" ng-click="okItem(1)">OK</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+      </div>
+    </script>
+
+    <button id="compButton" class="btn btn-default" ng-click="openComp()">Pick the skills</button>
+
+    <script type="text/ng-template" id="myModalContentProjet.html">
+      <div class="modal-header">
+	<h4>Choose the projects</h4>
+	<form>
+	  <input type="text" ng-model="searchProj" placeholder="Chercher dans la liste" autofocus>
+	  <button class="btn-primary" ng-click="selectAllItem(2)"> All </button>
+	  <button class="btn-primary" ng-click="selectNoneItem(2)"> None </button>
+	  <span>{{remaining(2)}}/{{projs.length}} projects chosen</span>
+	</form>
+      </div>
+      <div class="modal-body" ng-mouseover="projJson()">
+	<ul data-ng-init="projJson()" >
+	  <ul>
+	    <li class="proj" ng-repeat="proj in projs | filter:searchProj | orderBy:['text'] ">
+	      <input type="checkbox" ng-model="proj.done">
+	      <span  class="done-{{proj.done}}">{{proj.text}}</span>
+	    </li>
+	  </ul>
+	</ul>
+      </div>
+      <div class="modal-footer">
+	<button class="btn btn-primary" ng-click="okItem(2)">OK</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+      </div>
+    </script>
+
+    <button id="projectButton" class="btn btn-default" ng-click="openProj()">Pick the projects</button>
+  </div>
+
+  <!--<div id="recapSearch">
+      <form>
+	<span id="recapSelected" class="selected">SELECTED = {{ selected }}</span>
+      </form>
+  </div>-->
+
+  <form name="form3">
+    <div id="choices">
+      <p id="textChoice"> Select the number of developers you want to display:<!--Top k des développeurs en nombre de commits: <a href="" class="info">[*]<span>Vous pouvez choisir le nombre de développeurs que vous désirez afficher.</span></a>--></p>
+
+      <div id="choiceInput0">
+	<INPUT TYPE="radio" NAME="choix" id="choix0" VALUE="3"> 3 <!--<a href="#" class="info">[*]<span>En choisissant "-1", vous afficherez tous les développeurs.</span></a> -->
+      </div>
+      
+      <div id="choiceInput1">
+	<INPUT TYPE="radio" NAME="choix" id="choix1" VALUE="5"> 5</input>
+      </div>
+      
+      <div id="choiceInput2">
+	<INPUT TYPE="radio" NAME="choix" id="choix2" VALUE="10"> 10</input>
+      </div>
+
+      <div id="choiceInput3">
+	<INPUT TYPE="radio" NAME="choix" id="choix3" VALUE="30"> 30</input>
+      </div>
+
+      <div id="choiceInput4">
+	<INPUT TYPE="radio" NAME="choix" id="choix4" VALUE="50"> 50</input>
+      </div>
+
+      <div id="choiceInput5">
+	<INPUT TYPE="radio" NAME="choix" id="choix5" VALUE="-1"> All</input>
+      </div>
+      
+
+
+      <!--<div id="valider">-->
+      <INPUT TYPE="button" id="but" VALUE="Save" onclick="final()">
+      <!--</div>-->
+    </div>
+
+    
+  </form>
+
+  
+  
+  
+  
+</div>
+
+<script type="text/javascript" src="js/configuration1.js"></script>

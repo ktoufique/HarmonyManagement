@@ -1,0 +1,9 @@
+<div>
+    <h1 class="">All projects</h1>
+</div>
+
+<input type="search" ng-model="q" placeholder="select a project" />
+<li class="animate-repeat" ng-repeat="name in projectAll | filter:q" ng-click="go(name.type)">
+      {{name.name}}
+</li>
+</div>

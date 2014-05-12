@@ -1,0 +1,150 @@
+
+<div>
+    <h1 class="">{{titre}}</h1>
+	  
+</div>
+<style>
+
+body {
+ 
+	
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/*
+.x.axis path {
+  display: none;
+}
+*/
+
+.line {
+  stroke: black;
+  fill: none;
+  stroke-width: 0.75px;
+}
+
+.line.line0 {
+  stroke: #5FB65F;
+  stroke-width: 1.5px;
+}
+
+.line.line1 {
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+.line.line2 {
+  stroke: #FE851B;
+  stroke-width: 1.5px;
+}
+.line.line3 {
+  stroke: indianred;
+  stroke-width: 1.5px;
+}
+.line.line4 {
+  stroke: #336CA6;
+  stroke-width: 1.5px;
+}
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+}
+
+.focus circle.y0 {
+  stroke: #5FB65F;
+}
+
+.focus circle.y1 {
+  stroke: steelblue;
+}
+
+.focus circle.y2 {
+  stroke: #FE851B;
+}
+
+.focus circle.y3 {
+  stroke: indianred;
+}
+.focus circle.y4 {
+  stroke: #336CA6;
+}
+
+.focus line {
+  stroke: purple;
+  shape-rendering: crispEdges;
+}
+
+.focus line.y0 {
+  stroke: #5FB65F;
+  stroke-dasharray: 3 3;
+
+  opacity: .5;
+}
+
+.focus line.y1 {
+  stroke: steelblue;
+  stroke-dasharray: 3 3;
+  opacity: .5;
+}
+.focus line.y2 {
+  stroke: #FE851B;
+  stroke-dasharray: 3 3;
+  opacity: .5;
+}
+.focus line.y3 {
+  stroke: #indianred;
+  stroke-dasharray: 3 3;
+  opacity: .5;
+}
+.focus line.y4 {
+  stroke: #336CA6;
+  stroke-dasharray: 3 3;
+  opacity: .5;
+}
+
+
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.legend rect {
+  stroke:black;
+  opacity:0.8;}
+  
+  .lineChart{
+  font-size: 10px;
+  width:80%;
+  height:20%;
+  margin-left:auto;
+  margin-right:auto;
+  
+  }
+</style>
+
+<div class="row placeholders">
+    
+        <div class="lineChart"></div>
+        <h4>Competences en fonction du temps</h4>
+        <span class="text-muted"></span>
+    
+
+
+</div>
+		
+		<script type="text/javascript" src="js/lineChartProjet.js"></script>
+
+		
+
+		

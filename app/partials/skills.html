@@ -1,0 +1,9 @@
+<div>
+    <h1 class="">All skills</h1>
+</div>
+
+<input type="search" ng-model="q" placeholder="select a skill" />
+<li class="animate-repeat" ng-repeat="name in skillAll | filter:q" ng-click="go(name.type)">
+      {{name.name}}
+</li>
+</div>
