@@ -1,14 +1,10 @@
 
-<div>
-  <h1 class="">{{titre}}</h1>
-  <h2>{{developpeur}}</h2>
-
-  <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
-</div>
-
 <div class='row' ng-controller='AptsListControllers'>
-
-
+  <div id="someDiv">
+    <h2>{{developpeur}}</h2>
+    <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
+  </div>
+  <input ng-model='idCurrentDevelopper' ng-change='remakeData()'>
   <table class='table table-bordered' >
 
     <tr>
@@ -32,12 +28,82 @@
   </table>
 </div>
 
+<br><br><br>
 
-<style> 
+<div class="row placeholders" >
 
-  body {
+  <div class="lineChartNoCompound">
 
+
+
+  </div>
+  <h4>Commits through Time</h4>
+  <span class="text-muted"></span>
+
+
+
+</div>
+<div class="radioButtons"><input type="radio" id="compounded" name="group1" value="Compound" onchange="createCompound()"  > Cumul&eacute;
+ <input type="radio" name="group1" id="uncompounded" value="NoCompound" onchange="createNoCompound()" checked > Non Cumul&eacute;</div>
+ <script type="text/javascript">
+   if(globalDev==1) {createNoCompound(); globalDev=0;}
+
+   $('#someDiv').bind("DOMSubtreeModified",function(){
+    createNoCompound();
+    document.getElementById("uncompounded").checked = true;
+    document.getElementById("compounded").checked = false;
+  });
+
+
+ </script>
+
+
+
+ <style>
+
+  svg {
+    width: 100%;
+    border: solid 1px #ccc;
+    font: 10px sans-serif;
   }
+
+  .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgb(201, 230, 239);
+    color: #000;
+    border-radius: 2px;
+  }
+
+  /* Creates a small triangle extender for the tooltip */
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+
+  /* Style northward tooltips differently */
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+
+  .bar:hover {
+    opacity:0.4;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
 
   .axis path,
   .axis line {
@@ -46,105 +112,109 @@
     shape-rendering: crispEdges;
   }
 
-/*
-.x.axis path {
-  display: none;
-}
-*/
 
-.line {
-  stroke: black;
-  fill: none;
-  stroke-width: 0.75px;
-}
+  .x.axis path {
+    display: none;
+  }
 
-.line.line0 {
-  stroke: #5FB65F;
-  stroke-width: 1.5px;
-}
-
-.line.line1 {
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-.line.line2 {
-  stroke: #FE851B;
-  stroke-width: 1.5px;
-}
-.overlay {
-  fill: none;
-  pointer-events: all;
-}
-
-.focus circle {
-  fill: none;
-}
-
-.focus circle.y0 {
-  stroke: #5FB65F;
-}
-
-.focus circle.y1 {
-  stroke: steelblue;
-}
-
-.focus circle.y2 {
-  stroke: #FE851B;
-}
-
-.focus line {
-  stroke: purple;
-  shape-rendering: crispEdges;
-}
-
-.focus line.y0 {
-  stroke: #5FB65F;
-  stroke-dasharray: 3 3;
-
-  opacity: .5;
-}
-
-.focus line.y1 {
-  stroke: steelblue;
-  stroke-dasharray: 3 3;
-  opacity: .5;
-}
-.focus line.y2 {
-  stroke: #FE851B;
-  stroke-dasharray: 3 3;
-  opacity: .5;
-}
-
-.brush .extent {
-  stroke: #fff;
-  fill-opacity: .125;
-  shape-rendering: crispEdges;
-}
-
-.legend rect {
-  stroke:black;
-  opacity:0.8;}
-  
-  .lineChart{
-    font-size: 10px;
+  .lineChartNoCompound{
     width:80%;
     height:20%;
     margin-left:auto;
     margin-right:auto;
-    
+
   }
-</style>
+  .lineChartCompound{
+    width:80%;
+    height:20%;
+    margin-left:auto;
+    margin-right:auto;
 
-
-<div class="row placeholders">
-
-  <div class="lineChart"></div>
-  <h4>Commits through time</h4>
-  <span class="text-muted"></span>
+  }
   
+  .line {
+    stroke: black;
+    fill: none;
+    stroke-width: 0.75px;
+  }
+
+  .line.line0 {
+    stroke: #5FB65F;
+    stroke-width: 1.5px;
+  }
+
+  .line.line1 {
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+  .line.line2 {
+    stroke: #FE851B;
+    stroke-width: 1.5px;
+  }
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
+
+  .focus circle {
+    fill: none;
+  }
+
+  .focus circle.y0 {
+    stroke: #5FB65F;
+  }
+
+  .focus circle.y1 {
+    stroke: steelblue;
+  }
+
+  .focus circle.y2 {
+    stroke: #FE851B;
+  }
+
+  .focus line {
+    stroke: purple;
+    shape-rendering: crispEdges;
+  }
+
+  .focus line.y0 {
+    stroke: #5FB65F;
+    stroke-dasharray: 3 3;
+
+    opacity: .5;
+  }
+
+  .focus line.y1 {
+    stroke: steelblue;
+    stroke-dasharray: 3 3;
+    opacity: .5;
+  }
+  .focus line.y2 {
+    stroke: #FE851B;
+    stroke-dasharray: 3 3;
+    opacity: .5;
+  }
+
+  .brush .extent {
+    stroke: #fff;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+  }
+
+  .legend rect {
+    stroke:black;
+    opacity:0.8;}
+
+    .radioButtons{
+      position: absolute; 
+      right: 20%; 
+      top: 37%;"
+    }
 
 
-</div>
+  </style>
+
+
 		<!--
 		<script type="text/javascript" src="js/lineChart.js"></script>
   -->

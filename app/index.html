@@ -33,6 +33,11 @@
        <![endif]-->
 
        <!--Modernizr 3.0-->
+       <script type="text/javascript">
+       var globalDev=0;
+       var globalComp=0;
+       var globalProj=0;
+       </script>
        <script src="template-assets/lib/modernizr-build.min.js"></script>
 
        <!--Begin here -->
@@ -52,7 +57,15 @@
 
        <script type="text/javascript" src="js/d3.v3.min.js"></script>
        <script type="text/javascript" src="js/d3.legend.js"></script>
-       <script type="text/javascript" src="js/lineChart.js"></script>
+       <script type="text/javascript" src="js/data-adapt.js"></script>   
+     <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/d3.layout.js"></script>
+    <script type="text/javascript"  src="js/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="js/d3.csv.js"></script>
+       <script type="text/javascript" src="js/lineChartNoCompound.js"></script>  
+       <script type="text/javascript" src="js/lineChartCompetence.js"></script>
+       <script type="text/javascript" src="js/lineChartProjet.js"></script>
        <script type="text/javascript" src="js/data-adapt.js"></script> 
 
        <!--End here   -->
@@ -114,7 +127,7 @@
             </a> 
             <form class="main-search" data-ng-submit="go(selected.type)" data-ng-init="go(selected.type)">
               <div class="input-group">
-                <input type="text" class="input-small form-control" placeholder="Search" ng-model="selected" typeahead="name as name.name for name in resAll | filter:$viewValue | limitTo:8 | orderBy:['type', 'name']" typeahead-on-select="go(selected.type)" typeahead-template-url="itemTpl.html" class="ng-valid ng-dirty form-control">
+                <input type="text" class="input-small form-control" placeholder="Search" ng-model="selected" typeahead="name as name.name for name in alls | filter:$viewValue | limitTo:8 | orderBy:['type', 'name']" typeahead-on-select="go(selected.type)" typeahead-template-url="itemTpl.html" class="ng-valid ng-dirty form-control">
                 <span class="input-group-btn">
                   <button class="btn btn-primary btn-sm text-muted" type="button" data-ng-click="go(selected.type)"><i class="fa fa-search"></i></button>
                 </span> 
@@ -160,21 +173,21 @@
 
         <!-- #menu -->
         <ul id="menu" class="">
-          <li class="nav-header">MENU</li>
+          <li class="nav-header">Menu</li>
           <li class="nav-divider"></li> 
 
 
           <li>
             <a href="#/home">
               <i class="fa fa-home"></i>
-              <span class="link-title">HOME</span> 
+              <span class="link-title">Home</span> 
             </a> 
           </li>
           <li>
             <a href="#/projects">
               <i class="fa fa-briefcase"></i>
               <span class="link-title">
-                PROJECTS
+                Projects
               </span> 
             </a> 
           </li>
@@ -182,21 +195,21 @@
             <a href="#/skills">
               <i class="fa fa-lightbulb-o"></i>
               <span class="link-title">
-                SKILLS
+                Skills
               </span>  
             </a> 
           </li>
           <li>
             <a href="#/developers">
               <i class="fa fa-user"></i><span class="link-title">
-                DEVELOPERS
+                Developers
               </span> 
             </a> 
           </li>
           <li>
             <a href="#/configuration">
               <i class="fa fa-cogs"></i><span class="link-title">
-                CONFIGURATION
+                Configuration
               </span> 
             </a> 
           </li>

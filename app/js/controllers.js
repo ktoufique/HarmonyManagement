@@ -20,6 +20,7 @@ function mainController($scope, $http, $location, $routeParams) {
   $scope.skillAll=[];
   $scope.projectAll=[];
   $scope.id=$routeParams.id;
+
   
 /*  JsonFactory.qdata(function(results) {
     $scope.alls = results;
@@ -27,100 +28,121 @@ function mainController($scope, $http, $location, $routeParams) {
   });
 */
 
-  $http.get('json/report.json').success(function(data) {
-    var k=0;
-    var n=0;
-    var type_def; 
+$http.get('json/report.json').success(function(data) {
+  var k=0;
+  var n=0;
+  var type_def; 
 
-    for (var i=0; i<data.repositories.length; i++) {
-                 for (var j=0; j<data.repositories[i].developers.length; j++) {
-                    n=0;
-                    if($scope.alls.length > 0) {
-                      for(var m = 0; m < $scope.alls.length; m++){
-                        if($scope.alls[m].id == data.repositories[i].developers[j].id)
-                          n++;
-                      }
-                      
-                    }     
-
-                    if (n===0) {
-                      k++;
-                      $scope.alls.push({'type': '=', 'name':data.repositories[i].developers[j].name, 'id':data.repositories[i].developers[j].id});  
-                      $scope.devAll.push({'name':data.repositories[i].developers[j].name, 'id':data.repositories[i].developers[j].id}); 
-                   }
-                  }
-                }
-
-    /* Get all skills names */
-      k=0; 
-      for (var i=0; i<data.domain_aptitudes.length; i++) {
-        n=0;
-
-        if($scope.alls.length > 0) {
-          for(var m = 0; m < $scope.alls.length; m++){
-            if($scope.alls[m].id == data.domain_aptitudes[i].id)
-              n++;
-          }
-        }     
-
-        if (n===0) {
-          k++;
-          $scope.alls.push({'type':'==','name':data.domain_aptitudes[i].name,'id':data.domain_aptitudes[i].id});
-          $scope.skillAll.push({'name':data.domain_aptitudes[i].name,'id':data.domain_aptitudes[i].id});
-        }
-
+  for (var i=0; i<data.repositories.length; i++) {
+   for (var j=0; j<data.repositories[i].developers.length; j++) {
+    n=0;
+    if($scope.alls.length > 0) {
+      for(var m = 0; m < $scope.alls.length; m++){
+        if($scope.alls[m].id == data.repositories[i].developers[j].id)
+          n++;
       }
 
-      /* Get all projects names */
-      k=0; 
-      for (var i=0; i<data.repositories.length; i++) {
-        n=0;
-        if($scope.alls.length > 0) {
-          for(var m = 0; m < $scope.alls.length; m++){
-            if($scope.alls[m].id == data.repositories[i].id )
-              n++;
-          }
-        }     
-        if (n===0) {
-          k++;
-          $scope.alls.push({'type':'===','name':data.repositories[i].name ,'id':data.repositories[i].id});
-          $scope.projectAll.push({'name':data.repositories[i].name ,'id':data.repositories[i].id});
-        }
+    }     
+
+    if (n===0) {
+      k++;
+      $scope.alls.push({'type': '=', 'name':data.repositories[i].developers[j].name, 'id':data.repositories[i].developers[j].id});  
+      $scope.devAll.push({'name':data.repositories[i].developers[j].name, 'id':data.repositories[i].developers[j].id}); 
+    }
+  }
+}
+
+/* Get all skills names */
+k=0; 
+for (var i=0; i<data.domain_aptitudes.length; i++) {
+
+  for (var j=0; j<data.domain_aptitudes[i].concrete_aptitudes.length; j++) {
+    n=0;
+
+    if($scope.alls.length > 0) {
+      for(var m = 0; m < $scope.alls.length; m++){
+        if($scope.alls[m].id == data.domain_aptitudes[i].concrete_aptitudes[j].id)
+          n++;
       }
- });
-  
+    }     
+
+    if (n===0) {
+      k++;
+      $scope.alls.push({'type':'==','name':data.domain_aptitudes[i].concrete_aptitudes[j].name,'id':data.domain_aptitudes[i].concrete_aptitudes[j].id});
+      $scope.skillAll.push({'name':data.domain_aptitudes[i].concrete_aptitudes[j].name,'id':data.domain_aptitudes[i].concrete_aptitudes[j].id});
+    }
+  }
+}
+
+/* Get all projects names */
+k=0; 
+for (var i=0; i<data.repositories.length; i++) {
+  n=0;
+  if($scope.alls.length > 0) {
+    for(var m = 0; m < $scope.alls.length; m++){
+      if($scope.alls[m].id == data.repositories[i].id )
+        n++;
+    }
+  }     
+  if (n===0) {
+    k++;
+    $scope.alls.push({'type':'===','name':data.repositories[i].name ,'id':data.repositories[i].id});
+    $scope.projectAll.push({'name':data.repositories[i].name ,'id':data.repositories[i].id});
+  }
+}
+});
+
   //$scope.alls=[{"type":"=","name":"Simone Tripodi","id":"2"},{"type":"=","name":"Roman Stumm","id":"3"},{"type":"=","name":"Romain Manni-Bucau","id":"4"},{"type":"=","name":"Matthew Jason Benson","id":"5"},{"type":"=","name":"Donald Woods","id":"6"},{"type":"=","name":"Developpeur Inconnu","id":"0"},{"type":"=","name":"Julius Davies","id":"1"},{"type":"=","name":"Niall Ke","id":"2"},{"type":"=","name":"Gary D. Gregory","id":"3"},{"type":"=","name":"Sebastian Bazley","id":"4"},{"type":"=","name":"Henri Yandell","id":"5"},{"type":"=","name":"Thomas Neidhart","id":"6"},{"type":"=","name":"Timothy O'Brien","id":"7"},{"type":"=","name":"Donald Woods","id":"8"},{"type":"==","name":"Edition de fichiers JAVA","id":"843576936"},{"type":"==","name":"Edition de fichiers HTML","id":"3213258"},{"type":"==","name":"Edition de fichiers CSS","id":"98850"},{"type":"===","name":"http://git.apache.org/bval.git","id":"3"},{"type":"===","name":"http://git.apache.org/commons-codec.git","id":"21"}];    
   
   
-  var res=$scope.alls;
+  res=$scope.alls;
   $scope.resAll=$scope.alls;
+
+
 
 
 
 	//perment de naviguer entre les pages
   $scope.go = function ( id ) {
-    if($scope.selected.type=="="){    
+
+    switch($scope.selected.type){
+      case "=": 
       $scope.developpeur = $scope.selected.name;
       idCurrentDevelopper=$scope.selected.id;
+      $scope.idCurrentDevelopper = $scope.selected.id;
       $scope.alls=res;
-      $location.path( '/developer/'+idCurrentDevelopper);
-	     
-    }
-            
-	  else if($scope.selected.type=="=="){
+      
+      if ($location.absUrl().indexOf("skill")!=-1 || $location.absUrl().indexOf("project")!=-1) {globalDev=1;}
+      $location.path( '/developer');
+      break;
+      case "==":
       $scope.developpeur = $scope.selected.name;
-      idCurrentCompetence=$scope.selected.id;
+      idCurrentCompetence= $scope.selected.id;
       nameCurrentCompetence=$scope.selected.name;
-      $scope.alls=res; 
-      $location.path( '/skill/'+idCurrentCompetence );
-    }
-		else if($scope.selected.type=="==="){
-      $scope.developpeur = $scope.selected.name;
-		  idCurrentRepo=$scope.selected.id;
-		  nameCurrentRepo=$scope.selected.name;
+      $scope.idCurrentCompetence = $scope.selected.id;      
       $scope.alls=res;
-      $location.path( '/project/'+idCurrentRepo );
+      
+      if ($location.absUrl().indexOf("developer")!=-1 || $location.absUrl().indexOf("project")!=-1) globalComp=1;
+      $location.path( '/skill');
+      break;
+      case "===":
+      $scope.developpeur = $scope.selected.name;
+      idCurrentRepo=$scope.selected.id;
+      $scope.idCurrentRepo=$scope.selected.id;
+      nameCurrentRepo=$scope.selected.name;
+      $scope.alls=res;
+      
+      if ($location.absUrl().indexOf("skill")!=-1 || $location.absUrl().indexOf("developer")!=-1) globalProj=1;
+      $location.path( '/project');
+      break;
+      default:
+      $location.path( '/');
+      break;
     }
+    $scope.$broadcast('remakeData');
+    $scope.$broadcast('remakeDataBis');
+    $scope.$broadcast('remakeDataBisBis');
+
   };
 }
 
@@ -131,7 +153,7 @@ harmonyControllers.controller('mainController',mainController);
 harmonyControllers.controller('HomeCtrl', ['$scope', '$http',
   function($scope, $http) {
 
-  $http.get('json/report.json').success(function(data) {
+    $http.get('json/report.json').success(function(data) {
       var someArray = new Array();
       
       data.repositories.forEach(function(d){
@@ -144,7 +166,7 @@ harmonyControllers.controller('HomeCtrl', ['$scope', '$http',
     });  
 
     $scope.pageClass = 'page-home';
-    $scope.titre = 'HOME';
+    $scope.titre = 'Home';
     $scope.indexMax = 5; 
   }]);
 
@@ -324,78 +346,78 @@ var ModalInstanceCtrl= function ($scope, $modalInstance) {
     }
     else if (val===1){
      angular.forEach($scope.comps, function(comp) {
-        if (!comp.done) comp.done = true;
-      }); 
-    } 
-    else if(val ===2){
-      angular.forEach($scope.projs, function(proj) {
-        if (!proj.done) proj.done = true;
-      }); 
-    }
-  };
+      if (!comp.done) comp.done = true;
+    }); 
+   } 
+   else if(val ===2){
+    angular.forEach($scope.projs, function(proj) {
+      if (!proj.done) proj.done = true;
+    }); 
+  }
+};
 
-  $scope.selectNoneItem = function(val) {
-    if (val===0){
-      angular.forEach($scope.devs, function(dev) {
-        if (dev.done) dev.done = false;
-      });
-    } 
-    if (val===1){
-      angular.forEach($scope.comps, function(comp) {
-        if (comp.done) comp.done = false;
-      });
-    }
-    if (val ===2){
-      angular.forEach($scope.projs, function(proj) {
-        if (proj.done) proj.done = false;
-      }); 
-    }
-  };
+$scope.selectNoneItem = function(val) {
+  if (val===0){
+    angular.forEach($scope.devs, function(dev) {
+      if (dev.done) dev.done = false;
+    });
+  } 
+  if (val===1){
+    angular.forEach($scope.comps, function(comp) {
+      if (comp.done) comp.done = false;
+    });
+  }
+  if (val ===2){
+    angular.forEach($scope.projs, function(proj) {
+      if (proj.done) proj.done = false;
+    }); 
+  }
+};
 
-  $scope.okItem = function (val) {
-    $scope.devSaved=[];
-    $scope.devSavedBarre=[];
-    var oldDevs = $scope.devs;
-    $scope.compSaved=[];
-    $scope.compSavedBarre=[];
-    var oldComps = $scope.comps;
-    $scope.projSaved=[];
-    $scope.projSavedBarre=[];
-    var oldProjs = $scope.projs;
-    if (val===0){
-      angular.forEach(oldDevs, function(dev) {
-        if (dev.done)  {
-          $scope.devSavedBarre.push({'type' : '=', 'name' : dev.text , 'id' : dev.id});
-          $scope.devSaved.push(dev.id);
-        };
-      });  
-    }
-    if (val===1){
-      angular.forEach(oldComps, function(comp) {
-        if (comp.done)  {
-          $scope.compSavedBarre.push({'type' : '=', 'name' : comp.text , 'id' : comp.id});
-          $scope.compSaved.push(dev.id);
-        };
-      });
-    }
-    if (val===2){
-      angular.forEach(oldProjs, function(proj) {
-        if (proj.done)  {
-          $scope.projSavedBarre.push({'type' : '=', 'name' : proj.text , 'id' : proj.id});
-          $scope.projSaved.push(proj.id);
-        };
-      });
-    }
+$scope.okItem = function (val) {
+  $scope.devSaved=[];
+  $scope.devSavedBarre=[];
+  var oldDevs = $scope.devs;
+  $scope.compSaved=[];
+  $scope.compSavedBarre=[];
+  var oldComps = $scope.comps;
+  $scope.projSaved=[];
+  $scope.projSavedBarre=[];
+  var oldProjs = $scope.projs;
+  if (val===0){
+    angular.forEach(oldDevs, function(dev) {
+      if (dev.done)  {
+        $scope.devSavedBarre.push({'type' : '=', 'name' : dev.text , 'id' : dev.id});
+        $scope.devSaved.push(dev.id);
+      };
+    });  
+  }
+  if (val===1){
+    angular.forEach(oldComps, function(comp) {
+      if (comp.done)  {
+        $scope.compSavedBarre.push({'type' : '=', 'name' : comp.text , 'id' : comp.id});
+        $scope.compSaved.push(dev.id);
+      };
+    });
+  }
+  if (val===2){
+    angular.forEach(oldProjs, function(proj) {
+      if (proj.done)  {
+        $scope.projSavedBarre.push({'type' : '=', 'name' : proj.text , 'id' : proj.id});
+        $scope.projSaved.push(proj.id);
+      };
+    });
+  }
    // res=$scope.devSavedBarre;
-    $scope.resAll= $scope.devSavedBarre; 
+   $scope.resAll= $scope.devSavedBarre; 
 
-    $scope.selected.dev= $scope.devSaved;
-    $modalInstance.close($scope.resAll);
-  };
+   $scope.selected.dev= $scope.devSaved;
+   $modalInstance.close($scope.resAll);
+ };
 
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
+ $scope.cancel = function () {
+  $modalInstance.dismiss('cancel');
+};
 
 
 };
@@ -432,22 +454,40 @@ harmonyControllers.controller('AptsListControllers', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {
 
-      $scope.defaultDeveloper = $scope.selected.id;
+      $scope.defaultDeveloper = $scope.idCurrentDevelopper;
 
-      var aptitudes = makeAptStat(data, $scope.defaultDeveloper);
+      var aptitudes = makeAptStat(data, $scope.idCurrentDevelopper);
       
       
 
-      aptitudes = addFirstLast(aptitudes, data, $scope.defaultDeveloper); 
+      aptitudes = addFirstLast(aptitudes, data, $scope.idCurrentDevelopper); 
 
       $scope.apts= aptitudes;
       $scope.projs = data.repositories;   
       
-      $scope.remakeData = function(){
-        $scope.apts = makeAptStat(data, $scope.defaultDeveloper);
-        $scope.apts = addFirstLast($scope.apts, data, $scope.defaultDeveloper)
-      }
+      $scope.$on('remakeData', function(){
+        $scope.apts = makeAptStat(data, $scope.idCurrentDevelopper);
+        $scope.apts = addFirstLast($scope.apts, data, $scope.idCurrentDevelopper)
+      })
 
+    });  
+
+  }]);
+harmonyControllers.controller('allProjsController', ['$scope', '$http',
+  function($scope, $http) {
+    $http.get('json/report.json').success(function(data) {
+
+      $scope.defaultProject = $scope.idCurrentRepo;
+      $scope.orderProp = "-commits";
+      
+      $scope.projs = makeProjectData(data, $scope.idCurrentRepo);
+      $scope.projs = makeTooltipText($scope.projs);
+
+      $scope.$on('remakeDataBis', function(){
+        $scope.projs = makeProjectData(data, $scope.idCurrentRepo);
+        $scope.projs = makeTooltipText($scope.projs);
+      }); 
+      
     });  
 
   }]);
@@ -468,40 +508,21 @@ harmonyControllers.controller('allDevsController', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {    
 
-      $scope.defaultCompetence = "843576936";
+      $scope.defaultCompetence = $scope.idCurrentCompetence;
       $scope.orderProp = "-total";  
 
-      $scope.devs = getLastCommit(data, $scope.defaultCompetence);
+      $scope.devs = getLastCommit(data, $scope.idCurrentCompetence);
 
-      $scope.remakeDataBis = function(){
-        $scope.devs = getLastCommit(data, $scope.defaultCompetence);
-      }
+      $scope.$on('remakeDataBisBis', function(){
+        
+        $scope.devs = getLastCommit(data, $scope.idCurrentCompetence);
+      }); 
 
     });  
 
   }]);
 
-harmonyControllers.controller('allProjsController', ['$scope', '$http',
-  function($scope, $http) {
-    $http.get('json/report.json').success(function(data) {
 
-
-
-
-      $scope.defaultProject = "3";
-      $scope.orderProp = "-commits";
-      
-      $scope.projs = makeProjectData(data, $scope.defaultProject);
-      $scope.projs = makeTooltipText($scope.projs);
-
-      $scope.remakeDataBisBis = function(){
-        $scope.projs = makeProjectData(data, $scope.defaultProject);
-        $scope.projs = makeTooltipText($scope.projs);
-      }
-      
-    });  
-
-  }]);
 
 /*Start here <------------------------------------------------->*/
 function makeTooltipText(details){
@@ -662,7 +683,7 @@ function makeEventsData(data, isFiveLastOnly){
     d1.expressions.forEach(function(d2){
       d2.concrete_expressions.forEach(function(dThree){
         dThree.scores_times.forEach(function(d4){
-          
+
           var dateIn = new Date(parseInt(d4.split("_")[1])*1000);
           
           var day = dateIn.getDay() +1;

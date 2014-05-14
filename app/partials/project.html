@@ -1,21 +1,68 @@
 
-<div>
-    <h1 class="">{{titre}}</h1>
-	  
+<div class="row" ng-controller='allProjsController'>
+  <div id="someDivProj">
+
+    <h2>{{developpeur}}<h2>
+
+     <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
+   </div>
+
+   <table class='table table-bordered'>
+    <tr>
+      <td>Developpeur</td>
+      <td>Score</td>
+    </tr>
+    <tr ng-repeat='proj in projs | orderBy:orderProp'>
+      <td>{{proj.name}}</td>
+      <td>
+        <button class="btn btn-default" id="btn-to-center" href="#" tooltip-placement="right" tooltip="{{proj.tooltipText}}">
+          {{proj.total}}
+        </button>
+      </td>
+    </tr>
+  </table>
 </div>
+
+
+
+
+<div class="row placeholders">
+
+  <div class="lineChartProject"></div>
+  <h4>Competences en fonction du temps</h4>
+  <span class="text-muted"></span>
+
+
+
+</div>
+
+<script type="text/javascript">
+  $('#someDivProj').bind("DOMSubtreeModified",function(){
+
+    createChartProject();
+
+  });
+  if(globalProj==1) {createChartProject(); globalProj=0;}
+
+
+
+</script>
+
+
+
 <style>
 
-body {
- 
-	
-}
+  body {
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
 
 /*
 .x.axis path {
@@ -124,27 +171,11 @@ body {
   opacity:0.8;}
   
   .lineChart{
-  font-size: 10px;
-  width:80%;
-  height:20%;
-  margin-left:auto;
-  margin-right:auto;
-  
+    font-size: 10px;
+    width:80%;
+    height:20%;
+    margin-left:auto;
+    margin-right:auto;
+
   }
 </style>
-
-<div class="row placeholders">
-    
-        <div class="lineChart"></div>
-        <h4>Competences en fonction du temps</h4>
-        <span class="text-muted"></span>
-    
-
-
-</div>
-		
-		<script type="text/javascript" src="js/lineChartProjet.js"></script>
-
-		
-
-		

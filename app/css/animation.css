@@ -1,6 +1,6 @@
 /* BASE STYLES
    ============================================================================= */
-html         { overflow-y:auto; }
+html         { overflow-y:scroll; }
 .page        {
     bottom:0;
     padding-top:0px;

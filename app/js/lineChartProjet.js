@@ -46,6 +46,9 @@ this.name=name;
 this.desc=desc;
 
 }
+
+function createChartProject(){
+	d3.select(".lineChartProject").select("svg").remove();
 var maVariable=12;
 var node = document.getElementById('node-id');
    var repo= new Array(); //Array of repository objects
@@ -62,14 +65,13 @@ var node = document.getElementById('node-id');
 //var data=$.getJSON( "http://flouistherese.vvv.enseirb-matmeca.fr/JSON/report.json", function( ) {});
 var data = {};
     $.ajax({
-    	url: "http://localhost:8000/app/HarmonyManagement/app/json/report.json",
-    	async: false,
-    	dataType: 'json',
-    	success: function(myData) {
-    		data = myData;
-    	}
+      url: "http://localhost:8000/app/JSON/report.json",
+      async: false,
+      dataType: 'json',
+      success: function(myData) {
+        data = myData;
+      }
     });
-
 //maVariable=555;
    // var node = document.getElementById('node-id');
    // var repo=Array(); //Array of repository objects
@@ -384,7 +386,7 @@ var mini_line=new Array();
     .x(function(d) { return mini_x(d.date); })
     .y(function(d) { return mini_y1(d.Competence); });*/
 
-var svg = d3.select(".lineChart").append("svg:svg")
+var svg = d3.select(".lineChartProject").append("svg:svg")
     .attr("width", main_width + main_margin.left + main_margin.right)
     .attr("height", main_height + main_margin.top + main_margin.bottom);
 
@@ -655,4 +657,5 @@ function brush() {
   main.select(".line"+i).attr("d", main_line[i]);
   }
   main.select(".x.axis").call(main_xAxis);
+}
 }

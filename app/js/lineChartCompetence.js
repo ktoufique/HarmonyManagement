@@ -1,6 +1,6 @@
 console.time("LineChartCompetence");
 
-console.time("LineChart");
+
 
 		
 		var obj = document.getElementById("currentDevelopper");
@@ -41,11 +41,15 @@ this.desc=desc;
 
 function Concrete_aptitude(id,name,desc)
 {
+
 this.id=id;
 this.name=name;
 this.desc=desc;
 
 }
+
+function createChartCompetence(){
+	d3.select(".lineChartSkill").select("svg").remove();
 var maVariable=12;
 var node = document.getElementById('node-id');
    var repo= new Array(); //Array of repository objects
@@ -62,12 +66,12 @@ var node = document.getElementById('node-id');
 //var data=$.getJSON( "http://flouistherese.vvv.enseirb-matmeca.fr/JSON/report.json", function( ) {});
 var data = {};
     $.ajax({
-    	url: "http://localhost:8000/app/HarmonyManagement/app/json/report.json",
-    	async: false,
-    	dataType: 'json',
-    	success: function(myData) {
-    		data = myData;
-    	}
+      url: "http://localhost:8000/app/JSON/report.json",
+      async: false,
+      dataType: 'json',
+      success: function(myData) {
+        data = myData;
+      }
     });
 
 //maVariable=555;
@@ -384,7 +388,7 @@ var mini_line=new Array();
     .x(function(d) { return mini_x(d.date); })
     .y(function(d) { return mini_y1(d.Competence); });*/
 
-var svg = d3.select(".lineChart").append("svg:svg")
+var svg = d3.select(".lineChartSkill").append("svg:svg")
     .attr("width", main_width + main_margin.left + main_margin.right)
     .attr("height", main_height + main_margin.top + main_margin.bottom);
 
@@ -609,6 +613,7 @@ for(i=0;i<nbData;++i){
       .on("mouseout", function() { focus.style("display", "none"); })
       .on("mousemove", mousemove);
 
+
   function mousemove() {
   /*for(var j=0;j<nbData;++j){
   document.write("Data "+j+" <br><br><br>");
@@ -648,6 +653,8 @@ for(i=0;i<nbData;++i){
   }
     console.timeEnd("LineChartCompetence");
 
+
+
 function brush() {
 
   main_x.domain(brush.empty() ? mini_x.domain() : brush.extent());
@@ -655,4 +662,6 @@ function brush() {
   main.select(".line"+i).attr("d", main_line[i]);
   }
   main.select(".x.axis").call(main_xAxis);
+}
+
 }

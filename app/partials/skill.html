@@ -1,22 +1,60 @@
+  <div id="someDivSkill">
+    <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
+  </div>
 
-<div>
-    <h1 class="">{{titre}}</h1>
-    <h2>{{id}}<h2>
-	 <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
-</div>
-<style>
+  <div ng-controller='allDevsController'>
+    <h2>{{developpeur}}<h2>
+      <br>
+      <table class='table table-bordered'>
+        <tr>
+          <td>Developpeur</td>
+          <td>Score</td>
+          <td>Dernier Commit</td>
+        </tr>
+        <tr ng-repeat='dev in devs | orderBy:orderProp'>
+          <td>{{dev.id}}</td>
+          <td>{{dev.total}}</td>
+          <td>{{dev.timeFull}}</td>
+        </tr>
+      </table>
+    </div>
 
-body {
- 
-	
-}
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+    <div class="row placeholders">
+
+      <div class="lineChartSkill"></div>
+      <h4>Expressions through time</h4>
+      <span class="text-muted"></span>
+
+
+
+    </div>
+
+    <script type="text/javascript">
+      $('#someDivSkill').bind("DOMSubtreeModified",function(){
+        createChartCompetence();
+      });
+      if(globalComp==1) {createChartCompetence(); globalComp=0;}
+
+
+    </script>
+
+
+
+
+    <style>
+
+      body {
+
+
+      }
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
 
 /*
 .x.axis path {
@@ -125,27 +163,13 @@ body {
   opacity:0.8;}
   
   .lineChart{
-  font-size: 10px;
-  width:80%;
-  height:20%;
-  margin-left:auto;
-  margin-right:auto;
-  
+    font-size: 10px;
+    width:80%;
+    height:20%;
+    margin-left:auto;
+    margin-right:auto;
+
   }
 </style>
 
-<div class="row placeholders">
-    
-        <div class="lineChart"></div>
-        <h4>Expressions through time</h4>
-        <span class="text-muted"></span>
-    
 
-
-</div>
-		
-		<script type="text/javascript" src="js/lineChartCompetence.js"></script>
-
-		
-
-		
