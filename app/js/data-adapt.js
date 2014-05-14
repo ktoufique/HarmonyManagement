@@ -3,11 +3,11 @@
 
     $.getJSON('json/report.json', function(response){
 
-     dataJSON = response;
+       dataJSON = response;
 
 
 
-     var k = getScoreTimes(2044, 98850, dataJSON);
+       var k = getScoreTimes(2044, 98850, dataJSON);
 ////console.log("Size of return value : " + k.length);
 // This is tested and is working.
 
@@ -64,7 +64,11 @@ NOTE : I still need to get the info in the correct format */
 
 function getCompetenceRatioNames(data){
 
+
+
     var rslt = getCompetenceRatio(data);
+
+
     rslt.forEach(function(d, i){
         var name = getNameById(d.label, data);
         rslt[i].label = name;
@@ -143,13 +147,46 @@ function getCompetenceRatio(data) {
             totalPerComp = 0;
             aptitudes.push(d2.id_concrete_aptitude);
             d2.concrete_expressions.forEach(function(d4){
-                //console.log(d4)
                 scoreTimes += d4.scores_times.length;
                 d4.scores_times.forEach(function(d5){
                     //console.log(d5);
                     number = parseInt(d5.split("_")[0]);
                 })
                 totalPerComp += number;
+            })
+            //console.log(totalPerComp);
+            result.push({"label": d2.id_concrete_aptitude, "value": totalPerComp});
+        })
+        
+    })
+    
+    
+    return result;
+}
+
+function getCompetenceRatioByRepo(data, repo) {
+
+    //console.log("Hello");
+
+    var aptitudes = new Array();
+    var result = new Array();
+    var scoreTimes = 0, totalPerComp = 0, number = 0;
+
+    data.aptitude_expressions.forEach(function(d1, i){
+        d1.expressions.forEach(function(d2){
+
+            scoreTimes = 0;
+            totalPerComp = 0;
+            aptitudes.push(d2.id_concrete_aptitude);
+            d2.concrete_expressions.forEach(function(d4){
+                if (d4.repo == repo){
+                    scoreTimes += d4.scores_times.length;
+                    d4.scores_times.forEach(function(d5){
+                    //console.log(d5);
+                    number = parseInt(d5.split("_")[0]);
+                })
+                    totalPerComp += number;
+                }
             })
             //console.log(totalPerComp);
             result.push({"label": d2.id_concrete_aptitude, "value": totalPerComp});

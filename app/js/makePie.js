@@ -7,8 +7,6 @@ var w = 300,                            //width
 
     // Cette partie permet de construire un objet JSON adapté au format qu'attends le script. 
     //De plus, ça s'adapte automatiquement au nombre d'élements ajoutés (avec la chaine .select().data(data)) ... )
-     
-     console.log("hey")
 
      var newData = new Array(); // This array will contain the list of couples (repo, numberOfDevelopers)
      for (var i = 0; i < dataJSON.repositories.length; i++){
@@ -57,10 +55,18 @@ var w = 300,                            //width
     makePie(compData, ".pieComps", w, h);
     makePie(newData, ".pieProjs", w, h);
 
-    console.log("Hello")
-
     devsData = adaptPieToLevel(devsData, 4);
     makePie(devsData, ".pieDevs", w, h);
+
+    var specProjData = getCompetenceRatioByRepo(dataJSON, idCurrentRepo);
+
+    specProjData.forEach(function(d,i){
+        specProjData[i].label = getNameById(d.label, dataJSON);
+    })
+    
+    specProjData = adaptPieToLevel(specProjData, 4);
+
+    makePie(specProjData, ".pieProjsSpec", w, h);
 
 })
 
@@ -79,10 +85,12 @@ function makePie(data, divClass, w, h){
                 .attr("height", h)
         .append("svg:g")                //make a group to hold our pie chart
             .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+            
 
     var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
     .outerRadius(r)
     .innerRadius(r-80);
+
 
     var pie = d3.layout.pie()           //this will create arc data for us given a list of values
         .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
@@ -95,8 +103,7 @@ function makePie(data, divClass, w, h){
 
                 arcs.append("svg:path")
         .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
-        .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
-
+        .attr("d", arc);
 
 /*arcs
 .append("svg:text")

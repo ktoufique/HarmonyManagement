@@ -482,6 +482,7 @@ harmonyControllers.controller('allProjsController', ['$scope', '$http',
       
       $scope.projs = makeProjectData(data, $scope.idCurrentRepo);
       $scope.projs = makeTooltipText($scope.projs);
+      $scope.compsLabels = $scope.projs[0].commitsDetailed;
 
       $scope.$on('remakeDataBis', function(){
         $scope.projs = makeProjectData(data, $scope.idCurrentRepo);
@@ -514,7 +515,7 @@ harmonyControllers.controller('allDevsController', ['$scope', '$http',
       $scope.devs = getLastCommit(data, $scope.idCurrentCompetence);
 
       $scope.$on('remakeDataBisBis', function(){
-        
+
         $scope.devs = getLastCommit(data, $scope.idCurrentCompetence);
       }); 
 

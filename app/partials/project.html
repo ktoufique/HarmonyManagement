@@ -7,17 +7,17 @@
      <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
    </div>
 
+   <div class="pieProjsSpec"></div>
+   
+
    <table class='table table-bordered'>
     <tr>
       <td>Developpeur</td>
-      <td>Score</td>
+      <td ng-repeat='cmp in compsLabels'> {{cmp.comp}} </td>
     </tr>
     <tr ng-repeat='proj in projs | orderBy:orderProp'>
       <td>{{proj.name}}</td>
-      <td>
-        <button class="btn btn-default" id="btn-to-center" href="#" tooltip-placement="right" tooltip="{{proj.tooltipText}}">
-          {{proj.total}}
-        </button>
+      <td ng-repeat='cmp in proj.commitsDetailed' > {{cmp.score}}
       </td>
     </tr>
   </table>
@@ -36,13 +36,15 @@
 
 </div>
 
+
+
 <script type="text/javascript">
   $('#someDivProj').bind("DOMSubtreeModified",function(){
 
     createChartProject();
 
   });
-  if(globalProj==1) {createChartProject(); globalProj=0;}
+  if(globalProj == 1) {createChartProject(); globalProj=0;}
 
 
 
@@ -179,3 +181,5 @@
 
   }
 </style>
+
+<script type="text/javascript" src="js/makePie.js"></script>
