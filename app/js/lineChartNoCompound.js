@@ -68,7 +68,7 @@ var node = document.getElementById('node-id');
 //var data=$.getJSON( "http://flouistherese.vvv.enseirb-matmeca.fr/JSON/report.json", function( ) {});
 var data = {};
     $.ajax({
-      url: "http://localhost:8000/app/JSON/report.json",
+      url: "json/report.json",
       async: false,
       dataType: 'json',
       success: function(myData) {
