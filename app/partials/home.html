@@ -16,6 +16,20 @@
         <h4>Developpers</h4>
         <span class="text-muted"></span>
     </div>
+    <div ng-controller='LatestComsController' class="col-md-12">
+
+        <h4>Latest commits</h4>
+        
+        <table >
+            <tr ng-repeat='ev in evs'>
+            <td class="thumbnail" style="margin-bottom:1px;" >
+                    <span class='badge'>{{ev.time1}} - {{ev.time2}}</span>  
+                    Le developpeur <strong>{{ev.dev}}</strong> a exprimé la compétence <strong> {{ev.id}}/{{ev.domain}} </strong> lors de {{ev.score}} commits au projet <a href="{{ev.repo}}">{{ev.repo}}</a>
+                </td>
+            </tr>
+        </table>
+        
+    </div>
 
 
 
