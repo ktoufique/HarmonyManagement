@@ -1,5 +1,3 @@
-function makePieGlobal(){
-
 
 var w = 300,                            //width
     h = 300,                            //height                           //radius
@@ -67,7 +65,7 @@ var w = 300,                            //width
     })
     
     specProjData = adaptPieToLevel(specProjData, 4);
-    
+
     makePie(specProjData, ".pieProjsSpec", w, h);
 
 })
@@ -78,7 +76,7 @@ var w = 300,                            //width
 
 
 function makePie(data, divClass, w, h){
-d3.select(".pieProjsSpec").select("svg").remove();
+
     r = h/2;
     var vis = d3.select(divClass)
         .append("svg:svg")              //create the SVG element inside the <body>
@@ -181,6 +179,4 @@ arcs
     
 
         // This code enables to center the text on it's origin
-        /**/
-
-    }
+          /**/

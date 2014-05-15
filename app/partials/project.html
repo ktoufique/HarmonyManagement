@@ -2,7 +2,7 @@
 <div class="row" ng-controller='allProjsController'>
   <div id="someDivProj">
 
-    <h2>{{developpeur}}<h2>
+    <h2>{{nameRepo}}<h2>
 
      <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
    </div>
@@ -42,7 +42,6 @@
   $('#someDivProj').bind("DOMSubtreeModified",function(){
 
     createChartProject();
-    makePieGlobal();
 
   });
   if(globalProj == 1) {createChartProject(); globalProj=0;}
@@ -183,4 +182,4 @@
   }
 </style>
 
-
+<script type="text/javascript" src="js/makePie.js"></script>

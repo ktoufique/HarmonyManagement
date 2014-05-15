@@ -48,7 +48,7 @@ var node = document.getElementById('node-id');
  maFonction();
  
 function maFonction(){
-$.getJSON( "json/report.json", function( data ) {
+$.getJSON( "JSON/report.json", function( data ) {
 maVariable=555;
    // var node = document.getElementById('node-id');
    // var repo=Array(); //Array of repository objects

@@ -1,20 +1,17 @@
 <div>
-    <h1 class="">All developers</h1>
+    <h1 class="">All developers
+    <img ng-src="img/icon-=.png" width="70"></a> </h1>
 </div>
 
-
-<div class="col-md-10">
-<!--<li class="animate-repeat" ng-repeat="name in devAll | filter:q" ng-click="go(name.type)" data-ng-submit="go(name.type)" data-ng-init="go(name.type)"> -->
 
 <ul>
-	<input type="search" ng-model="q"  placeholder="select a developer" />
-    <li ng-repeat="name in devAll | filter:q" >
-    	<button href="/partials/home.html">{{name.name}}</button>
-    </li>
+	<input type="text" ng-model="query"  placeholder="choose a developer" />
 </ul>
-	 <!--<a href="#/developer">{{name.name}}</a> 
-	  <button ng-click="go(name.type)">{{name.name}}</button> developer/name.id-->
-<!--</li> -->
-{{test}}
-</div>
 
+<ul class="developers">
+	<div ng-repeat="name in devAll | filter:query | orderBy:orderProp">
+		<form class="main-search" data-ng-submit="go(1, name.id, name.name)" >
+    	<a href data-ng-click="go(1, name.id, name.name)">{{name.name}}</a>
+    	</form
+    </div>
+</ul>

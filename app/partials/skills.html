@@ -1,9 +1,17 @@
 <div>
-    <h1 class="">All skills</h1>
+    <h1 class="">All skills
+    <img ng-src="img/icon-==.png" width="70"></a> </h1>
 </div>
 
-<input type="search" ng-model="q" placeholder="select a skill" />
-<li class="animate-repeat" ng-repeat="name in skillAll | filter:q" ng-click="go(name.type)">
-      {{name.name}}
-</li>
-</div>
+
+<ul>
+	<input type="search" ng-model="query"  placeholder="choose a skill" />
+</ul>
+
+<ul class="skills">
+	<div ng-repeat="name in skillAll | filter:query | orderBy:orderProp">
+	<form class="search" data-ng-submit="go(name.type)" data-ng-init="go(name.type)" >
+    	<a href data-ng-click="go(2,name.id, name.name)">{{name.name}}</a>
+    </form>
+    </div>
+</ul>

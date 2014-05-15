@@ -3,11 +3,12 @@
 var harmonyControllers = angular.module('harmonyControllers', ['ui.bootstrap']);
 
 /* Controllers */
-var idCurrentDevelopper=15;
-var idCurrentCompetence=12;
-var idCurrentRepo=12;
-var nameCurrentRepo=15;
-var nameCurrentCompetence="null";
+var idCurrentDevelopper;
+var nameCurrentDevelopper; 
+var idCurrentCompetence;
+var idCurrentRepo;
+var nameCurrentRepo;
+var nameCurrentCompetence;
 
 var res=[];
 
@@ -20,13 +21,6 @@ function mainController($scope, $http, $location, $routeParams) {
   $scope.skillAll=[];
   $scope.projectAll=[];
   $scope.id=$routeParams.id;
-
-  
-/*  JsonFactory.qdata(function(results) {
-    $scope.alls = results;
-    res=results;
-  });
-*/
 
 $http.get('json/report.json').success(function(data) {
   var k=0;
@@ -92,53 +86,69 @@ for (var i=0; i<data.repositories.length; i++) {
 }
 });
 
-  //$scope.alls=[{"type":"=","name":"Simone Tripodi","id":"2"},{"type":"=","name":"Roman Stumm","id":"3"},{"type":"=","name":"Romain Manni-Bucau","id":"4"},{"type":"=","name":"Matthew Jason Benson","id":"5"},{"type":"=","name":"Donald Woods","id":"6"},{"type":"=","name":"Developpeur Inconnu","id":"0"},{"type":"=","name":"Julius Davies","id":"1"},{"type":"=","name":"Niall Ke","id":"2"},{"type":"=","name":"Gary D. Gregory","id":"3"},{"type":"=","name":"Sebastian Bazley","id":"4"},{"type":"=","name":"Henri Yandell","id":"5"},{"type":"=","name":"Thomas Neidhart","id":"6"},{"type":"=","name":"Timothy O'Brien","id":"7"},{"type":"=","name":"Donald Woods","id":"8"},{"type":"==","name":"Edition de fichiers JAVA","id":"843576936"},{"type":"==","name":"Edition de fichiers HTML","id":"3213258"},{"type":"==","name":"Edition de fichiers CSS","id":"98850"},{"type":"===","name":"http://git.apache.org/bval.git","id":"3"},{"type":"===","name":"http://git.apache.org/commons-codec.git","id":"21"}];    
-  
-  
   res=$scope.alls;
   $scope.resAll=$scope.alls;
 
-
-
-
-
 	//perment de naviguer entre les pages
-  $scope.go = function ( id ) {
-
-    switch($scope.selected.type){
-      case "=": 
-      $scope.developpeur = $scope.selected.name;
+  $scope.go = function ( test, id, name ) {
+    if($scope.selected.type=="=" ){
       idCurrentDevelopper=$scope.selected.id;
-      $scope.idCurrentDevelopper = $scope.selected.id;
+      nameCurrentDevelopper=$scope.selected.name; 
+      $scope.idDeveloper = $scope.selected.id;
       $scope.alls=res;
       
       if ($location.absUrl().indexOf("skill")!=-1 || $location.absUrl().indexOf("project")!=-1) {globalDev=1;}
       $location.path( '/developer');
-      break;
-      case "==":
-      $scope.developpeur = $scope.selected.name;
+      }
+
+    else if($scope.selected.type=="=="){
       idCurrentCompetence= $scope.selected.id;
       nameCurrentCompetence=$scope.selected.name;
-      $scope.idCurrentCompetence = $scope.selected.id;      
+      $scope.idSkill = $scope.selected.id;      
       $scope.alls=res;
       
       if ($location.absUrl().indexOf("developer")!=-1 || $location.absUrl().indexOf("project")!=-1) globalComp=1;
       $location.path( '/skill');
-      break;
-      case "===":
-      $scope.developpeur = $scope.selected.name;
+    }
+
+    else if($scope.selected.type=="==="){
       idCurrentRepo=$scope.selected.id;
-      $scope.idCurrentRepo=$scope.selected.id;
+      $scope.idRepo=$scope.selected.id;
       nameCurrentRepo=$scope.selected.name;
       $scope.alls=res;
       
       if ($location.absUrl().indexOf("skill")!=-1 || $location.absUrl().indexOf("developer")!=-1) globalProj=1;
       $location.path( '/project');
-      break;
-      default:
-      $location.path( '/');
-      break;
     }
+
+    else if (test==1){
+      idCurrentDevelopper= id;
+      $scope.idDeveloper = id;
+      nameCurrentDevelopper = name; 
+      console.log("id"+id +"et IDscope : "+$scope.idDeveloper + $scope.nom)
+      $scope.alls=res;
+
+      $location.path( '/developer');
+    }
+
+    else if(test==2){
+      idCurrentCompetence= id;
+      nameCurrentCompetence= name;
+      $scope.idSkill =id;      
+      $scope.alls=res;
+
+      $location.path( '/skill');
+    }
+
+    else if (test==3){
+      idCurrentRepo= id;
+      $scope.idRepo= id;
+      nameCurrentRepo=name;
+      $scope.alls=res;
+
+      $location.path( '/project');
+    }
+
     $scope.$broadcast('remakeData');
     $scope.$broadcast('remakeDataBis');
     $scope.$broadcast('remakeDataBisBis');
@@ -454,20 +464,18 @@ harmonyControllers.controller('AptsListControllers', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {
 
-      $scope.defaultDeveloper = $scope.idCurrentDevelopper;
+      $scope.defaultDeveloper = idCurrentDevelopper;
+      $scope.devName = nameCurrentDevelopper;
 
-      var aptitudes = makeAptStat(data, $scope.idCurrentDevelopper);
-      
-      
-
-      aptitudes = addFirstLast(aptitudes, data, $scope.idCurrentDevelopper); 
+      var aptitudes = makeAptStat(data, idCurrentDevelopper);
+      aptitudes = addFirstLast(aptitudes, data, idCurrentDevelopper); 
 
       $scope.apts= aptitudes;
       $scope.projs = data.repositories;   
       
       $scope.$on('remakeData', function(){
-        $scope.apts = makeAptStat(data, $scope.idCurrentDevelopper);
-        $scope.apts = addFirstLast($scope.apts, data, $scope.idCurrentDevelopper)
+        $scope.apts = makeAptStat(data, idCurrentDevelopper);
+        $scope.apts = addFirstLast($scope.apts, data, idCurrentDevelopper)
       })
 
     });  
@@ -477,15 +485,16 @@ harmonyControllers.controller('allProjsController', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {
 
-      $scope.defaultProject = $scope.idCurrentRepo;
+      $scope.defaultProject = idCurrentRepo;
       $scope.orderProp = "-commits";
       
-      $scope.projs = makeProjectData(data, $scope.idCurrentRepo);
+      $scope.nameRepo=nameCurrentRepo; 
+      $scope.projs = makeProjectData(data, idCurrentRepo);
       $scope.projs = makeTooltipText($scope.projs);
       $scope.compsLabels = $scope.projs[0].commitsDetailed;
 
       $scope.$on('remakeDataBis', function(){
-        $scope.projs = makeProjectData(data, $scope.idCurrentRepo);
+        $scope.projs = makeProjectData(data, idCurrentRepo);
         $scope.projs = makeTooltipText($scope.projs);
       }); 
       
@@ -509,14 +518,15 @@ harmonyControllers.controller('allDevsController', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {    
 
-      $scope.defaultCompetence = $scope.idCurrentCompetence;
+      $scope.defaultCompetence = idCurrentCompetence;
       $scope.orderProp = "-total";  
+      $scope.nameSkill=nameCurrentCompetence; 
 
-      $scope.devs = getLastCommit(data, $scope.idCurrentCompetence);
+      $scope.devs = getLastCommit(data, idCurrentCompetence);
 
       $scope.$on('remakeDataBisBis', function(){
 
-        $scope.devs = getLastCommit(data, $scope.idCurrentCompetence);
+        $scope.devs = getLastCommit(data, idCurrentCompetence);
       }); 
 
     });  
