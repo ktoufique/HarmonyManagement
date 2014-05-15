@@ -1,4 +1,4 @@
-
+function makePieGlobal(){
 var w = 300,                            //width
     h = 300,                            //height                           //radius
     color = d3.scale.category20();     //builtin range of colors
@@ -76,6 +76,7 @@ var w = 300,                            //width
 
 
 function makePie(data, divClass, w, h){
+    d3.select(".pieProjsSpec").select("svg").remove();
 
     r = h/2;
     var vis = d3.select(divClass)
@@ -176,7 +177,4 @@ arcs
         })
         return total;
     }
-    
-
-        // This code enables to center the text on it's origin
-          /**/
+}

@@ -1,4 +1,3 @@
-
 <div class="row" ng-controller='allProjsController'>
   <div id="someDivProj">
 
@@ -42,6 +41,7 @@
   $('#someDivProj').bind("DOMSubtreeModified",function(){
 
     createChartProject();
+    makePieGlobal();
 
   });
   if(globalProj == 1) {createChartProject(); globalProj=0;}

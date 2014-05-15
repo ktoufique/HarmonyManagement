@@ -30,13 +30,13 @@
     <!--[if lt IE 9]>
       <script src="template-assets/lib/html5shiv/html5shiv.js"></script>
         <script src="template-assets/lib/respond/respond.min.js"></script>
-       <![endif]-->
+        <![endif]-->
 
-       <!--Modernizr 3.0-->
-       <script type="text/javascript">
-       var globalDev=0;
-       var globalComp=0;
-       var globalProj=0;
+        <!--Modernizr 3.0-->
+        <script type="text/javascript">
+         var globalDev=0;
+         var globalComp=0;
+         var globalProj=0;
        </script>
        <script src="template-assets/lib/modernizr-build.min.js"></script>
 
@@ -58,29 +58,30 @@
        <script type="text/javascript" src="js/d3.v3.min.js"></script>
        <script type="text/javascript" src="js/d3.legend.js"></script>
        <script type="text/javascript" src="js/data-adapt.js"></script>   
-     <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
-    <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" src="js/d3.layout.js"></script>
-    <script type="text/javascript"  src="js/d3.tip.v0.6.3.js"></script>
-    <script type="text/javascript" src="js/d3.csv.js"></script>
+       <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+       <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+       <script type="text/javascript" src="js/d3.layout.js"></script>
+       <script type="text/javascript"  src="js/d3.tip.v0.6.3.js"></script>
+       <script type="text/javascript" src="js/d3.csv.js"></script>
        <script type="text/javascript" src="js/lineChartNoCompound.js"></script>  
        <script type="text/javascript" src="js/lineChartCompetence.js"></script>
        <script type="text/javascript" src="js/lineChartProjet.js"></script>
-       <script type="text/javascript" src="js/data-adapt.js"></script> 
+       <script type="text/javascript" src="js/data-adapt.js"></script>
+       <script type="text/javascript" src="js/makePie.js"></script> 
 
        <!--End here   -->
 
      </head>
      <body data-ng-controller="mainController">
-        <script type="text/ng-template" id="itemTpl.html">
+      <script type="text/ng-template" id="itemTpl.html">
        <a tabindex="-1">
-          <image ng-src="img/icon-{{match.model.type}}.png" width="16"></image>
-          <span  bind-html-unsafe="match.model.name | typeaheadHighlight:query" ></span>
-       </a>
+        <image ng-src="img/icon-{{match.model.type}}.png" width="16"></image>
+        <span  bind-html-unsafe="match.model.name | typeaheadHighlight:query" ></span>
+      </a>
     </script>
 
-      <div id="wrap">
-        <div id="top">
+    <div id="wrap">
+      <div id="top">
 
         <!-- .navbar -->
         <nav class="navbar navbar-inverse navbar-static-top">
@@ -168,7 +169,7 @@
               </ul>
             </div> -->
           </div>
-        
+          
         </div>
 
         <!-- #menu -->
@@ -202,48 +203,48 @@
           <li>
             <a href="#/developers">
               <i class="fa fa-user"></i><span class="link-title">
-                Developers
-              </span> 
-            </a> 
-          </li>
-          <li>
-            <a href="#/configuration">
-              <i class="fa fa-cogs"></i><span class="link-title">
-                Configuration
-              </span> 
-            </a> 
-          </li>
+              Developers
+            </span> 
+          </a> 
+        </li>
+        <li>
+          <a href="#/configuration">
+            <i class="fa fa-cogs"></i><span class="link-title">
+            Configuration
+          </span> 
+        </a> 
+      </li>
 
-        </ul>
-        <!-- /#menu -->
-      </div><!-- /#left -->
-      <div id="content">
-        <div class="outer">
-          <div class="inner">
-            <div class="col-lg-12">
+    </ul>
+    <!-- /#menu -->
+  </div><!-- /#left -->
+  <div id="content">
+    <div class="outer">
+      <div class="inner">
+        <div class="col-lg-12">
 
-              <!-- begin here -->
-              <style type="text/css">
-                .thumbnail {
-                text-align: center;
-                }
-              </style>
+          <!-- begin here -->
+          <style type="text/css">
+            .thumbnail {
+              text-align: center;
+            }
+          </style>
 
-             <div class="page {{ pageClass }}" ng-view></div>
-
-
+          <div class="page {{ pageClass }}" ng-view></div>
 
 
-            </div>
-          </div>
-          <!-- end here -->
+
+
         </div>
       </div>
-
-      <!-- end .inner -->
+      <!-- end here -->
     </div>
+  </div>
 
-    <!-- end .outer -->
+  <!-- end .inner -->
+</div>
+
+<!-- end .outer -->
 </div>
 
 <!-- end #content -->
