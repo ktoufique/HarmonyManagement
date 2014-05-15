@@ -474,6 +474,7 @@ harmonyControllers.controller('AptsListControllers', ['$scope', '$http',
       $scope.projs = data.repositories;   
       
       $scope.$on('remakeData', function(){
+        $scope.devName = nameCurrentDevelopper;
         $scope.apts = makeAptStat(data, idCurrentDevelopper);
         $scope.apts = addFirstLast($scope.apts, data, idCurrentDevelopper)
       })
@@ -494,6 +495,7 @@ harmonyControllers.controller('allProjsController', ['$scope', '$http',
       $scope.compsLabels = $scope.projs[0].commitsDetailed;
 
       $scope.$on('remakeDataBis', function(){
+        $scope.nameRepo=nameCurrentRepo;
         $scope.projs = makeProjectData(data, idCurrentRepo);
         $scope.projs = makeTooltipText($scope.projs);
       }); 
@@ -525,7 +527,7 @@ harmonyControllers.controller('allDevsController', ['$scope', '$http',
       $scope.devs = getLastCommit(data, idCurrentCompetence);
 
       $scope.$on('remakeDataBisBis', function(){
-
+        $scope.nameSkill=nameCurrentCompetence; 
         $scope.devs = getLastCommit(data, idCurrentCompetence);
       }); 
 
