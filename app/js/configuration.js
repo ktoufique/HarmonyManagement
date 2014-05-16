@@ -22,7 +22,6 @@ function choixprop(form3) {
 	alert("Veuillez choisir le nombre de développeurs que vous désirez afficher.");
 	return 1;
     }
-    
     return choixproposition;
 } 
 
@@ -70,13 +69,10 @@ function getDate1(k){
 }
 
 
-
 //<!-- Permet de récapituler les dates choisies par le manager -->
 function confirmation(){
-    var theDate1;
-    var theDate2;
-    theDate1=getDate1(1);
-    theDate2=getDate1(2);
+    var  theDate1 = getDate1(1);
+    var theDate2 = getDate1(2);
     document.writeln("Vous avez choisi les dates suivantes: "+theDate1);
     document.write("et "+theDate2);
 }

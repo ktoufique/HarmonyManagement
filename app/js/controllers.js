@@ -22,72 +22,72 @@ function mainController($scope, $http, $location, $routeParams) {
   $scope.projectAll=[];
   $scope.id=$routeParams.id;
 
-$http.get('json/report.json').success(function(data) {
-  var k=0;
-  var n=0;
-  var type_def; 
+  $http.get('json/report.json').success(function(data) {
+    var k=0;
+    var n=0;
+    var type_def; 
 
+    for (var i=0; i<data.repositories.length; i++) {
+     for (var j=0; j<data.repositories[i].developers.length; j++) {
+      n=0;
+      if($scope.alls.length > 0) {
+        for(var m = 0; m < $scope.alls.length; m++){
+          if($scope.alls[m].id == data.repositories[i].developers[j].id)
+            n++;
+        }
+
+      }     
+
+      if (n===0) {
+        k++;
+        $scope.alls.push({'type': '=', 'name':data.repositories[i].developers[j].name, 'id':data.repositories[i].developers[j].id});  
+        $scope.devAll.push({'name':data.repositories[i].developers[j].name, 'id':data.repositories[i].developers[j].id}); 
+      }
+    }
+  }
+
+  /* Get all skills names */
+  k=0; 
+  for (var i=0; i<data.domain_aptitudes.length; i++) {
+
+    for (var j=0; j<data.domain_aptitudes[i].concrete_aptitudes.length; j++) {
+      n=0;
+
+      if($scope.alls.length > 0) {
+        for(var m = 0; m < $scope.alls.length; m++){
+          if($scope.alls[m].id == data.domain_aptitudes[i].concrete_aptitudes[j].id)
+            n++;
+        }
+      }     
+
+      if (n===0) {
+        k++;
+        $scope.alls.push({'type':'==','name':data.domain_aptitudes[i].concrete_aptitudes[j].name,'id':data.domain_aptitudes[i].concrete_aptitudes[j].id});
+        $scope.skillAll.push({'name':data.domain_aptitudes[i].concrete_aptitudes[j].name,'id':data.domain_aptitudes[i].concrete_aptitudes[j].id});
+      }
+    }
+  }
+
+  /* Get all projects names */
+  k=0; 
   for (var i=0; i<data.repositories.length; i++) {
-   for (var j=0; j<data.repositories[i].developers.length; j++) {
     n=0;
     if($scope.alls.length > 0) {
       for(var m = 0; m < $scope.alls.length; m++){
-        if($scope.alls[m].id == data.repositories[i].developers[j].id)
-          n++;
-      }
-
-    }     
-
-    if (n===0) {
-      k++;
-      $scope.alls.push({'type': '=', 'name':data.repositories[i].developers[j].name, 'id':data.repositories[i].developers[j].id});  
-      $scope.devAll.push({'name':data.repositories[i].developers[j].name, 'id':data.repositories[i].developers[j].id}); 
-    }
-  }
-}
-
-/* Get all skills names */
-k=0; 
-for (var i=0; i<data.domain_aptitudes.length; i++) {
-
-  for (var j=0; j<data.domain_aptitudes[i].concrete_aptitudes.length; j++) {
-    n=0;
-
-    if($scope.alls.length > 0) {
-      for(var m = 0; m < $scope.alls.length; m++){
-        if($scope.alls[m].id == data.domain_aptitudes[i].concrete_aptitudes[j].id)
+        if($scope.alls[m].id == data.repositories[i].id )
           n++;
       }
     }     
-
     if (n===0) {
       k++;
-      $scope.alls.push({'type':'==','name':data.domain_aptitudes[i].concrete_aptitudes[j].name,'id':data.domain_aptitudes[i].concrete_aptitudes[j].id});
-      $scope.skillAll.push({'name':data.domain_aptitudes[i].concrete_aptitudes[j].name,'id':data.domain_aptitudes[i].concrete_aptitudes[j].id});
+      $scope.alls.push({'type':'===','name':data.repositories[i].name ,'id':data.repositories[i].id});
+      $scope.projectAll.push({'name':data.repositories[i].name ,'id':data.repositories[i].id});
     }
   }
-}
-
-/* Get all projects names */
-k=0; 
-for (var i=0; i<data.repositories.length; i++) {
-  n=0;
-  if($scope.alls.length > 0) {
-    for(var m = 0; m < $scope.alls.length; m++){
-      if($scope.alls[m].id == data.repositories[i].id )
-        n++;
-    }
-  }     
-  if (n===0) {
-    k++;
-    $scope.alls.push({'type':'===','name':data.repositories[i].name ,'id':data.repositories[i].id});
-    $scope.projectAll.push({'name':data.repositories[i].name ,'id':data.repositories[i].id});
-  }
-}
 });
 
-  res=$scope.alls;
-  $scope.resAll=$scope.alls;
+res=$scope.alls;
+$scope.resAll=$scope.alls;
 
 	//perment de naviguer entre les pages
   $scope.go = function ( test, id, name ) {
@@ -99,7 +99,7 @@ for (var i=0; i<data.repositories.length; i++) {
       
       if ($location.absUrl().indexOf("skill")!=-1 || $location.absUrl().indexOf("project")!=-1) {globalDev=1;}
       $location.path( '/developer');
-      }
+    }
 
     else if($scope.selected.type=="=="){
       idCurrentCompetence= $scope.selected.id;
@@ -463,6 +463,7 @@ harmonyControllers.controller('projectController', function($scope) {
 harmonyControllers.controller('AptsListControllers', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {
+      data = filterDB(data, [], [], [], []);
 
       $scope.defaultDeveloper = idCurrentDevelopper;
       $scope.devName = nameCurrentDevelopper;
@@ -474,6 +475,7 @@ harmonyControllers.controller('AptsListControllers', ['$scope', '$http',
       $scope.projs = data.repositories;   
       
       $scope.$on('remakeData', function(){
+        data = filterDB(data, [], [], [], []);
         $scope.devName = nameCurrentDevelopper;
         $scope.apts = makeAptStat(data, idCurrentDevelopper);
         $scope.apts = addFirstLast($scope.apts, data, idCurrentDevelopper)
@@ -485,6 +487,7 @@ harmonyControllers.controller('AptsListControllers', ['$scope', '$http',
 harmonyControllers.controller('allProjsController', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {
+      data = filterDB(data, [], [], [], []);
 
       $scope.defaultProject = idCurrentRepo;
       $scope.orderProp = "-commits";
@@ -495,6 +498,7 @@ harmonyControllers.controller('allProjsController', ['$scope', '$http',
       $scope.compsLabels = $scope.projs[0].commitsDetailed;
 
       $scope.$on('remakeDataBis', function(){
+        data = filterDB(data, [], [], [], []);
         $scope.nameRepo=nameCurrentRepo;
         $scope.projs = makeProjectData(data, idCurrentRepo);
         $scope.projs = makeTooltipText($scope.projs);
@@ -508,6 +512,7 @@ harmonyControllers.controller('allProjsController', ['$scope', '$http',
 harmonyControllers.controller('LatestComsController', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {
+      data = filterDB(data, [], [], [], []);
 
       $scope.evs = makeEventsData(data, true);
     });  
@@ -519,6 +524,7 @@ harmonyControllers.controller('LatestComsController', ['$scope', '$http',
 harmonyControllers.controller('allDevsController', ['$scope', '$http',
   function($scope, $http) {
     $http.get('json/report.json').success(function(data) {    
+      data = filterDB(data, [], [], [], []);
 
       $scope.defaultCompetence = idCurrentCompetence;
       $scope.orderProp = "-total";  
@@ -527,6 +533,7 @@ harmonyControllers.controller('allDevsController', ['$scope', '$http',
       $scope.devs = getLastCommit(data, idCurrentCompetence);
 
       $scope.$on('remakeDataBisBis', function(){
+        data = filterDB(data, [], [], [], []);
         $scope.nameSkill=nameCurrentCompetence; 
         $scope.devs = getLastCommit(data, idCurrentCompetence);
       }); 
@@ -873,3 +880,81 @@ function getTotalScores(rslt){
   })
   return total;
 }
+
+function filterDB(data, comps, devs, projs, dates){
+
+  /*var comps = [843576936, 110999];
+  var devs = [24, 1121]; 
+  var projs = [3];  
+  var dates =[1051293060, 1390923599];*/
+
+  /* Removes project from repositories */
+  projs.forEach(function(d1, j){
+    data.repositories.forEach(function(d2, i){
+      if (d2.id == d1) {
+        data.repositories.splice(i, 1);
+      }
+    })
+  })
+
+  /* Removes developer from repositories */
+  
+  devs.forEach(function(d1, i){
+    data.repositories.forEach(function(d2,j){
+      d2.developers.forEach(function(d4, k){
+        if (d4.id == d1){
+          data.repositories[j].developers.splice(k, 1);
+        }
+      })
+    })
+  }) 
+
+  /* Removes concrete aptitude from domain aptitudes */
+  
+  comps.forEach(function(d0, i){
+    data.domain_aptitudes.forEach(function(d1, j){
+      d1.concrete_aptitudes.forEach(function(d2, k){
+        if (d2.id == d0){
+          data.domain_aptitudes[j].concrete_aptitudes.splice(k, 1);
+        }
+      })
+    })
+  });
+
+  /* Removing expressions corresponding to competence, repository and developer */
+  comps.forEach(function(d1, i){
+    devs.forEach(function(d2, j){
+      projs.forEach(function(d4, k){
+        data.aptitude_expressions.forEach(function(d5, l){
+          d5.expressions.forEach(function(d6, m){
+            if (d6.id_concrete_aptitude == d1){
+              data.aptitude_expressions[l].expressions[m].concrete_expressions.splice(0, d6.concrete_expressions.length);
+            }
+            if (d6.id_concrete_aptitude != d1){
+              d6.concrete_expressions.forEach(function(d7, n){
+                if (d7.dev == d2 || d7.repo == d4){
+                  data.aptitude_expressions[l].expressions[m].concrete_expressions[n].scores_times.splice(0, d7.scores_times.length);
+                }
+              })
+            }
+          })
+        })
+      })
+    })
+  })
+
+  data.aptitude_expressions.forEach(function(d0, i){
+    d0.expressions.forEach(function(d1, j){
+      d1.concrete_expressions.forEach(function(d2, k){
+        d2.scores_times.forEach(function(d4, l){
+          var splited = parseInt(d4.split('_')[1]);
+          if (splited >= dates[0] || splited <= dates[1]){
+            data.aptitude_expressions[i].expressions[j].concrete_expressions[k].scores_times.splice(l, 1)            
+          }
+        })
+      })
+    })
+  })
+  return data;
+}
+
