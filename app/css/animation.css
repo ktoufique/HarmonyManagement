@@ -29,24 +29,34 @@ html         { overflow-y:scroll; }
 /* page specific animations ------------------------ */
 
 /* accueil -------------------------- */
-.page-accueil.ng-leave         {
+.page-home.ng-leave         {
     -webkit-animation:slideOutLeft 0s both ease-in;
     -moz-animation:slideOutLeft 0s both ease-in;
     animation:slideOutLeft 0s both ease-in;
 }
-.page-accueil.ng-enter 		{
+.page-home.ng-enter 		{
     -webkit-animation:slideInRight 0.5s both ease-in;
     -moz-animation:slideInRight 0.5s both ease-in;
     animation:slideInRight 0.5s both ease-in;
 }
 
 /* competence ------------------------ */
-.page-competence.ng-leave         {
+.page-skill.ng-leave         {
     -webkit-animation:slideOutLeft 0s both ease-in;
     -moz-animation:slideOutLeft 0s both ease-in;
     animation:slideOutLeft 0s both ease-in;
 }
-.page-competence.ng-enter 		{
+.page-skill.ng-enter 		{
+    -webkit-animation:slideInRight 0.5s both ease-in;
+    -moz-animation:slideInRight 0.5s both ease-in;
+    animation:slideInRight 0.5s both ease-in;
+}
+.page-skills.ng-leave         {
+    -webkit-animation:slideOutLeft 0s both ease-in;
+    -moz-animation:slideOutLeft 0s both ease-in;
+    animation:slideOutLeft 0s both ease-in;
+}
+.page-skills.ng-enter 		{
     -webkit-animation:slideInRight 0.5s both ease-in;
     -moz-animation:slideInRight 0.5s both ease-in;
     animation:slideInRight 0.5s both ease-in;
@@ -65,29 +75,48 @@ html         { overflow-y:scroll; }
 }
 
 /* developpeur ---------------------- */
-.page-developpeur.ng-leave      {
+.page-developer.ng-leave      {
     -webkit-animation:slideOutLeft 0s both ease-in;
     -moz-animation:slideOutLeft 0s both ease-in;
     animation:slideOutLeft 0s both ease-in;
 }
-.page-developpeur.ng-enter 		{
+.page-developer.ng-enter 		{
+    -webkit-animation:slideInRight 0.5s both ease-in;
+    -moz-animation:slideInRight 0.5s both ease-in;
+    animation:slideInRight 0.5s both ease-in;
+}
+.page-developers.ng-leave      {
+    -webkit-animation:slideOutLeft 0s both ease-in;
+    -moz-animation:slideOutLeft 0s both ease-in;
+    animation:slideOutLeft 0s both ease-in;
+}
+.page-developers.ng-enter 		{
     -webkit-animation:slideInRight 0.5s both ease-in;
     -moz-animation:slideInRight 0.5s both ease-in;
     animation:slideInRight 0.5s both ease-in;
 }
 
 /* projet ---------------------- */
-.page-projet.ng-leave      {
+.page-project.ng-leave      {
     -webkit-animation:slideOutLeft 0s both ease-in;
     -moz-animation:slideOutLeft 0s both ease-in;
     animation:slideOutLeft 0s both ease-in;
 }
-.page-projet.ng-enter 		{
+.page-project.ng-enter 		{
     -webkit-animation:slideInRight 0.5s both ease-in;
     -moz-animation:slideInRight 0.5s both ease-in;
     animation:slideInRight 0.5s both ease-in;
 }
-
+.page-projects.ng-leave      {
+    -webkit-animation:slideOutLeft 0s both ease-in;
+    -moz-animation:slideOutLeft 0s both ease-in;
+    animation:slideOutLeft 0s both ease-in;
+}
+.page-projects.ng-enter 		{
+    -webkit-animation:slideInRight 0.5s both ease-in;
+    -moz-animation:slideInRight 0.5s both ease-in;
+    animation:slideInRight 0.5s both ease-in;
+}
 /* rotate and fall */
 @-webkit-keyframes rotateFall {
     0% { -webkit-transform: rotateZ(0deg); }

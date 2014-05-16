@@ -25,23 +25,23 @@ harmonyApp.config(['$routeProvider',
       }).
       when('/skills', {
         templateUrl: 'partials/skills.html',
-        controller: 'mainController'
+        controller: 'skillsController'
        }).
       when('/skill', {
         templateUrl: 'partials/skill.html',
-        controller: 'mainController'
+        controller: 'skillController'
        }).
       when('/project', {
         templateUrl: 'partials/project.html',
-        controller: 'mainController'
+        controller: 'projectController'
        }).
       when('/projects', {
         templateUrl: 'partials/projects.html',
-        controller: 'mainController'
+        controller: 'projectsController'
        }).
       when('/developers', {
         templateUrl: 'partials/developers.html',
-        controller: 'mainController'
+        controller: 'developersController'
        }).
       when('/developer', {
         templateUrl: 'partials/developer.html',
@@ -49,7 +49,7 @@ harmonyApp.config(['$routeProvider',
        }).
       when('/configuration', {
         templateUrl: 'partials/configuration.html',
-        controller: 'mainController'
+        controller: 'configurationController'
         }).
       otherwise({
         redirectTo: '/'
