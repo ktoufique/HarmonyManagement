@@ -44,16 +44,7 @@ function getDate1(k){
     return huk;
 }
 
-function timeToStamp(date){
-
-    var date = date.split('/');
-    var fullDate = new Date(parseInt(date[2]), parseInt(date[1])-1, parseInt(date[0])+1, 0, 0, 0, 0);
-    var stamp = fullDate.getTime()/1000;
-
-    return stamp;
-}
-
-function final(){
+function final($location){
     var choixproposition;
     var theDate1;
     var theDate2;
@@ -62,9 +53,6 @@ function final(){
 
     theDate1=getDate1(1);
     theDate2=getDate1(2);
-
-    console.log(timeToStamp(theDate1));
-    console.log(timeToStamp(theDate2));    
 
     //Permet de vérifier quue le manager a choisi un nombre de développeurs 
     if (form3.choix[0].checked) { 
@@ -91,10 +79,10 @@ function final(){
 	//alert("Vous avez choisi la proposition " + form3.choix[5].value);
 	choixproposition=document.getElementById("choix5").value;		
     }
-    else {
+    /*else {
 	alert("Veuillez choisir le nombre de développeurs que vous désirez afficher.");
 	return ;
-    }
+    }*/
     
 
     // Permet de comparer les dates 
@@ -110,7 +98,7 @@ function final(){
     year2=theDateSplit2[2];
 
     
-    if (year1<year2){
+    /*if (year1<year2){
 	alert("ok pour l'année");
     }
     else if (year1==year2){
@@ -136,13 +124,14 @@ function final(){
 	
 	alert("il faut changer les dates pour l'année");
 	
-    }
+    }*/
 
 
+    $location.path( '/');
 
     
     
-    if (choixproposition==1){
+   /* if (choixproposition==1){
 	document.write("You decided to display one developer.");
     }
     else if (choixproposition==-1){
@@ -151,5 +140,5 @@ function final(){
     else {
 	document.write("You decided to display "+choixproposition);
 	document.write(" developers.");
-    }
+    } */
 }

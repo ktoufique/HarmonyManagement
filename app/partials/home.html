@@ -1,39 +1,68 @@
 <h1 class="">{{titre}}</h1>
 
+<style type="text/css">
+    .leftTitle {
+        float : left;
+    }
+</style>
+
+<div ng-controller='LatestComsController' class="col-md-16">
+
+    <h3 class="leftTitle">Latest commits</h3>
+    <br>
+    <br>
+    <br>
+        
+    <table >
+        <tr ng-repeat='ev in evs'>
+        <td class="thumbnail" style="margin-bottom:1px;" >
+            <span class='badge'>{{ev.time1}} - {{ev.time2}}</span>  
+            <span><strong>{{ev.dev}}</strong> used the skill <strong> {{ev.id}}/{{ev.domain}} </strong> in {{ev.score}} commits in the project <a href="{{ev.repo}}">{{ev.repo}}</a></span>
+            </td>
+        </tr>
+    </table>
+        
+</div>
+
+<br>
+
+<h3 class="leftTitle"> Stats </h3>
+<br>
+<br>
+<br>
 <div class="row placeholders">
     <div class="col-md-4 thumbnail">
-        <div class="pieComps"></div>
+        <h4>Developpers</h4>
+        <span class="text-muted"></span>
+       <h3> <img ng-src="img/icon-=.png" width="70">
+        {{nbDev}} </h3>
+    </div>
+    <div class="col-md-4 thumbnail">
         <h4>Skills</h4>
         <span class="text-muted"></span>
+        <h3> <img ng-src="img/icon-==.png" width="60">
+        {{nbSkill}} </h3>
+    </div>
+    <div class="col-md-4 thumbnail">
+        <h4>Projects</h4>
+        <span class="text-muted"></span>
+        <h3> <img ng-src="img/icon-===.png" width="80">
+        {{nbProject}}</h3>
+    </div>
+</div>
+
+<div class="row placeholders">
+    <div class="col-md-4 thumbnail">
+        <div class="pieDevs"></div>
+    </div>
+    <div class="col-md-4 thumbnail">
+        <div class="pieComps"></div>
     </div>
     <div class="col-md-4 thumbnail">
         <div class="pieProjs"></div>
-        <h4>Projects</h4>
-        <span class="text-muted"></span>
     </div>
-    <div class="col-md-4 thumbnail">
-        <div class="pieDevs"></div>
-        <h4>Developpers</h4>
-        <span class="text-muted"></span>
-    </div>
-    <div ng-controller='LatestComsController' class="col-md-12">
-
-        <h4>Latest commits</h4>
-        
-        <table >
-            <tr ng-repeat='ev in evs'>
-            <td class="thumbnail" style="margin-bottom:1px;" >
-                    <span class='badge'>{{ev.time1}} - {{ev.time2}}</span>  
-                    Le developpeur <strong>{{ev.dev}}</strong> a exprimé la compétence <strong> {{ev.id}}/{{ev.domain}} </strong> lors de {{ev.score}} commits au projet <a href="{{ev.repo}}">{{ev.repo}}</a>
-                </td>
-            </tr>
-        </table>
-        
-    </div>
-
-
-
 </div>
+
 <script type="text/javascript">
  makePieGlobal();
 </script>

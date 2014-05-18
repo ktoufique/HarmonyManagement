@@ -25,7 +25,7 @@ harmonyApp.config(['$routeProvider',
       }).
       when('/skills', {
         templateUrl: 'partials/skills.html',
-        controller: 'skillsController'
+        controller: 'mainController'
        }).
       when('/skill', {
         templateUrl: 'partials/skill.html',
@@ -37,7 +37,7 @@ harmonyApp.config(['$routeProvider',
        }).
       when('/projects', {
         templateUrl: 'partials/projects.html',
-        controller: 'projectsController'
+        controller: 'mainController'
        }).
       when('/developers', {
         templateUrl: 'partials/developers.html',

@@ -1,24 +1,58 @@
-  <div ng-controller='allDevsController'>
-    <h2>{{nameSkill}}</h2>
+  <div ng-controller='allSkillsController'>
+    <div id="someDivSkill">
+    <h2>{{nameSkill}}<h2>
+       <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
+    </div>
+
+    <div><h3 class="leftTitle"> Stats </h3></div>
+    <br><br><br>
+    <div class="row placeholders">
+      <div class="col-md-4 thumbnail">
+          <h3> <img ng-src="img/icon-=.png" width="70">
+          {{skillCountDev}} </h3>
+      </div>
+      <div class="col-md-4 thumbnail">
+          <h3> <img ng-src="img/icon-===.png" width="80">
+          {{skillCountRepo}} </h3>
+      </div>
+      <div class="col-md-4 thumbnail">
+          <h3> <img ng-src="img/smile.jpg" width="68">
+          {{skillMaxDev}}</h3>
+      </div>
+    </div>
+
       <br>
+      <div><h3 class="leftTitle"> Developers & Score </h3></div>
+      <br><br><br>
       <table class='table table-bordered'>
         <tr>
-          <td>Developpeur</td>
+          <td>Developer</td>
           <td>Score</td>
-          <td>Dernier Commit</td>
+          <td>Last Commit</td>
+          <td>Repositories</td>
         </tr>
-        <tr ng-repeat='dev in devs | orderBy:orderProp'>
+
+        <ul>
+        <input type="text" ng-model="query"  placeholder="search a developer" />
+        <a href ng-click="incrementLimitSkill()">See more developers <img ng-src="img/plus.jpg" width="30"></a>
+        <a href ng-click="decrementLimitSkill()"><img ng-src="img/moins.jpg" width="50"></a>
+        </ul>
+        
+        <tr ng-repeat='dev in devs | orderBy:orderProp | limitTo:pageSizeSkill | filter : query'>
           <td>{{dev.id}}</td>
           <td>{{dev.total}}</td>
           <td>{{dev.timeFull}}</td>
+          <td>{{dev.repo}}
         </tr>
       </table>
     </div>
 
 
     <div class="row placeholders">
-
+      <div><h3 class="leftTitle"> Developers & Time </h3></div>
+      <br><br><br>
       <div class="lineChartSkill"></div>
+      <h5>ZOOM</h5>
       <h4>Expressions through time</h4>
       <span class="text-muted"></span>
 
@@ -45,6 +79,10 @@
 
       }
 
+      .leftTitle {
+        float : left;
+      }
+  
       .axis path,
       .axis line {
         fill: none;

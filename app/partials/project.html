@@ -1,37 +1,74 @@
-<div class="row" ng-controller='allProjsController'>
+
+ 
+<div ng-controller='allProjsController'>
   <div id="someDivProj">
 
-    <h2>{{nameRepo}}<h2>
+    <h2 type="hidden">{{nameRepo}}<h2> 
+    <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
 
-     <input type="hidden" id="currentDevelopper" value={{developpeur}}> 
-   </div>
+  </div>  
 
-   <div class="pieProjsSpec"></div>
-   
+  <h3 class="leftTitle">Stats</h3>
+  <br>
+  <br>
+  <br>
+  <div class="row placeholders">
+      <div class="col-md-4 thumbnail">
+          <h3> <img ng-src="img/icon-==.png" width="60">
+          {{repoCountSkill}} </h3>
+      </div>
+      <div class="col-md-4 thumbnail">
+          <h3> <img ng-src="img/icon-=.png" width="70">
+          {{repoCountDev}}</h3>
+      </div>
+      <div class="col-md-4 thumbnail">
+          <h3> <img ng-src="img/smile.jpg" width="68">
+          {{maxNameDev}}</h3>
+      </div>
+  </div>
 
-   <table class='table table-bordered'>
+
+  <div class="row placeholders">
+    <h3 class="leftTitle">Developers & Skills </h3>
+    <br><br><br>
+    <table class='table table-bordered'>
     <tr>
-      <td>Developpeur</td>
+      <td>Developers</td>
       <td ng-repeat='cmp in compsLabels'> {{cmp.comp}} </td>
     </tr>
-    <tr ng-repeat='proj in projs | orderBy:orderProp'>
+
+    <ul>
+    <input type="text" ng-model="query"  placeholder="search a developer" />
+    <a href ng-click="incrementLimitRepo()">See more developers<img ng-src="img/plus.jpg" width="30"></a>
+    <a href ng-click="decrementLimitRepo()"><img ng-src="img/moins.jpg" width="50"></a>
+    </ul>
+
+    <tr ng-repeat='proj in projs | orderBy:projs.commitsDetailed |limitTo : pageSizeRepo | filter : query'>
       <td>{{proj.name}}</td>
       <td ng-repeat='cmp in proj.commitsDetailed' > {{cmp.score}}
       </td>
     </tr>
-  </table>
+    </table>
+
+    <h3 class="leftTitle">Skills & Stats</h3>
+    <div class="col-md-12 thumbnail">
+        <div class="pieProjsSpec"></div>
+        <span class="text-muted"></span>
+    </div>
+  </div>
+   
 </div>
 
 
 
-
 <div class="row placeholders">
+  <div><h3 class="leftTitle"> Skills & Time </h3></div>
+  <br><br><br><br>
 
   <div class="lineChartProject"></div>
-  <h4>Competences en fonction du temps</h4>
+  <h5>ZOOM</h5>
+  <h4>Skill through time</h4>
   <span class="text-muted"></span>
-
-
 
 </div>
 
@@ -71,6 +108,10 @@
   display: none;
 }
 */
+
+.leftTitle {
+    float : left;
+  }
 
 .line {
   stroke: black;

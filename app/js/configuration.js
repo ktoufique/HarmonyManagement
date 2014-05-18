@@ -268,11 +268,11 @@ function recap(){
 
 function final(){
     var choixproposition;
-    //var theDate1;
-    //var theDate2;
+    var theDate1;
+    var theDate2;
     var choixprop1;
     
-    console.log(theDate1);
+    
 
 	<!-- Permet de vérifier quue le manager a choisi un nombre de développeurs -->
 	if (form3.choix[0].checked) { 
