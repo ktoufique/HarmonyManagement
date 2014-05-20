@@ -431,9 +431,8 @@ var ModalInstanceCtrl= function ($scope, $modalInstance) {
   //res=$scope.allInit; 
   $scope.selected = {};
 
-  $scope.calculInit();
 
-  angular.forEach($scope.alls, function(item) {
+  angular.forEach(res, function(item) {
     if (item.type==="=") {
       $scope.devs.push({text:item.name, id:item.id, done:true});
     }
