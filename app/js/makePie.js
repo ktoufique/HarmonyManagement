@@ -5,7 +5,7 @@ var w = 300,                            //width
     
     $.getJSON('json/report.json', function(dataJSON){
 
-        dataJSON = filterDB(dataJSON, [], [], [], []);
+        dataJSON = filterDB(dataJSON, devIdDelete, skillIdDelete, projectIdDelete, []);
 
     // Cette partie permet de construire un objet JSON adapté au format qu'attends le script. 
     //De plus, ça s'adapte automatiquement au nombre d'élements ajoutés (avec la chaine .select().data(data)) ... )
