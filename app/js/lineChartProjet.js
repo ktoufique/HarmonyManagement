@@ -72,6 +72,9 @@ var data = {};
         data = myData;
       }
     });
+
+
+    data=filterDB(data, [], skillIdDelete, [], []); //Comps Only
 //maVariable=555;
    // var node = document.getElementById('node-id');
    // var repo=Array(); //Array of repository objects
@@ -265,7 +268,9 @@ var data = {};
 		
 		// } 
 
-
+var dateDebut=new Date(2010,1,1,0,0,0,0);
+var dateFin=new Date(2012,1,1,0,0,0,0);
+var devToDelete=[2044];
 			
 var repoIdSelected=idCurrentRepo;	  
 var repoNameSelected=nameCurrentRepo; 
@@ -287,11 +292,13 @@ for (var i=0; i<data.aptitude_expressions.length; i++) { //Process through each 
 			for(var k=0;k<data.aptitude_expressions[i].expressions[j].concrete_expressions.length;k++){
 			
 				var idRepoRead=data.aptitude_expressions[i].expressions[j].concrete_expressions[k].repo;
+				var devRead=data.aptitude_expressions[i].expressions[j].concrete_expressions[k].dev;
 				
 				if(idRepoRead==repoIdSelected){
 				if(idConcreteUsed.indexOf(data.aptitude_expressions[i].expressions[j].id_concrete_aptitude)==-1){
 				nbString++;
 				 stringCommitCompound[nbString]="date,Competence,Name\n";
+				 var nbOccurences=0;
 				competence[nbString]=0;
 				nouvelleCompetence[nbString]=1;
 				idConcreteUsed[idConcreteUsed.length]=data.aptitude_expressions[i].expressions[j].id_concrete_aptitude;
@@ -306,6 +313,8 @@ for (var i=0; i<data.aptitude_expressions.length; i++) { //Process through each 
 				var month=fullDate.getMonth()+1;
 				var myDate=""+fullDate.getDate()+"-"+month+"-"+fullDate.getFullYear().toString().substr(2,2)+"";
 				myDate=myDate.toString();
+				if(fullDate>dateDebut && fullDate<dateFin && devIdDelete.indexOf(devRead)==-1){
+					nbOccurences++;
 				stringCommitCompound[nbString]=stringCommitCompound[nbString]+myDate+","+competence[nbString]+"";
 				
 				if(nouvelleCompetence[nbString]==1){
@@ -319,19 +328,25 @@ for (var i=0; i<data.aptitude_expressions.length; i++) { //Process through each 
 				
 				}
 				stringCommitCompound[nbString]=stringCommitCompound[nbString]+"\n";
-				//document.write(stringCommitCompound[nbString]+"<br><br>");
+			}
+			
 				}
+
+				
+			
+				
 				
 				}
 				
 				
 			}
+			if(nbOccurences==0){stringCommitCompound[nbString]=stringCommitCompound[nbString]+"0,0";}
 			}
 			}
 			
-//for(var i=0;i<stringCommitCompound.length;++i){
+for(var i=0;i<stringCommitCompound.length;++i){
 			//document.write("String["+i+"+]   "+stringCommitCompound[i]+"<br><br>");
-			//}
+			}
 
 			
 

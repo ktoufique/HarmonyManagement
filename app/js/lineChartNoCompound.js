@@ -76,6 +76,18 @@ var data = {};
       }
     });
 
+data=filterDB(data, [], skillIdDelete, [], []); //Comps Only
+
+
+/*for (var i=0; i<data.aptitude_expressions.length; i++) { //Process through each expression of concrete aptitudes
+    for (var j=0; j<data.aptitude_expressions[i].expressions.length; j++) { 
+      for(var k=0;k<data.aptitude_expressions[i].expressions[j].concrete_expressions.length;k++){
+           for(var m=0;m<data.aptitude_expressions[i].expressions[j].concrete_expressions[k].scores_times.length;m++){
+        document.write(data.aptitude_expressions[i].expressions[j].concrete_expressions[k].scores_times[m]+"<br>")
+
+      }}}}*/
+
+
 //maVariable=555;
    // var node = document.getElementById('node-id');
    // var repo=Array(); //Array of repository objects
@@ -138,9 +150,9 @@ var data = {};
     for (var j=0; j<data.domain_aptitudes[i].concrete_aptitudes.length; j++) { //Process through every concrete aptitude per domain aptitude
       idConcreteAptitudes[totalConcreteAptitudes]=data.domain_aptitudes[i].concrete_aptitudes[j].id; //Add this id of this concrete aptitude to the array
       concreteAptitudes[totalConcreteAptitudes]=new Concrete_aptitude(data.domain_aptitudes[i].concrete_aptitudes[j].id,data.domain_aptitudes[i].concrete_aptitudes[j].name,data.domain_aptitudes[i].concrete_aptitudes[j].desc); //Create new concrete aptitude
-      // document.write("Id : "+concreteAptitudes[totalConcreteAptitudes].id+"<br>" );
-      // document.write("Name :"+concreteAptitudes[totalConcreteAptitudes].name+"<br>");
-      // document.write("Desc :"+concreteAptitudes[totalConcreteAptitudes].desc+"</p>");
+       //document.write("Id : "+concreteAptitudes[totalConcreteAptitudes].id+"<br>" );
+       //document.write("Name :"+concreteAptitudes[totalConcreteAptitudes].name+"<br>");
+       //document.write("Desc :"+concreteAptitudes[totalConcreteAptitudes].desc+"</p>");
       totalConcreteAptitudes++;
     }
     }
@@ -318,7 +330,7 @@ for (var j=0; j<repo[idRepo].developers[idDev].score_times[parseInt(matchingRepo
         }
         }
         }
-        
+        var dateMini=new Date(2100,1,1,0,0,0,0);var dateMaxi=new Date(1980,1,1,0,0,0,0);
 //document.write("La première dateEnd est "+ dateEnd.toString()+"<br>");
 var compteurCompetence=new Array();
 var maxLigne=0;
@@ -388,6 +400,10 @@ for (var j=0; j<repo[idRepo].developers[idDev].score_times[parseInt(matchingRepo
       
       }
       }
+
+      var dateDebut=new Date(2010,1,1,0,0,0,0);
+var dateFin=new Date(2012,1,1,0,0,0,0);
+
 stringTotal=stringTotal+"\n";
 var dateActuelle= new Date(dateEnd.value);
 
@@ -397,6 +413,9 @@ var dateActuelle= new Date(dateEnd.value);
         var myDate=""+month+"/"+dateActuelle.getFullYear().toString().substr(2,2)+"";
         myDate=myDate.toString();
         //document.write(compteurCompetence[0]+"<br>");
+        if(dateActuelle>dateDebut && dateActuelle<dateFin){
+        if (dateActuelle>dateMaxi) dateMaxi=new Date(dateActuelle);
+        if (dateActuelle<dateMini) dateMini=new Date(dateActuelle);
         stringTotal=stringTotal+myDate
         //document.write("Competence Used :"+competenceUsed.length+"<br><br><br><br>");
 
@@ -407,6 +426,7 @@ var dateActuelle= new Date(dateEnd.value);
         stringTotal=stringTotal+","+compteurCompetence[competenceUsed[j]][i];
         }
         stringTotal=stringTotal+"\n";
+      }
         dateActuelle.setMonth(dateActuelle.getMonth()+1);
 
 
@@ -414,11 +434,15 @@ var dateActuelle= new Date(dateEnd.value);
       }
 
       //document.write(stringTotal+"<br><br>");
-
+      var count = stringTotal.match(/,/g);  
+      //alert("il y a "+count.length);
 var w = 960,
     h = 500,
     p = [20, 50, 30, 20],
-    x = d3.scale.ordinal().rangeRoundBands([0, w - p[1] - p[3]]),
+    x = d3.scale.ordinal().rangeRoundBands([0, w ]),
+    x6=d3.time.scale()
+    .range([0, 980]);
+    //830
     y = d3.scale.linear().range([0, h - p[0] - p[2]]),
     y2=d3.scale.linear().range([0, h - p[0] - p[2]]),
     colorRange=["lightblue", "darkgray", "indianred","orange","orangered"];
@@ -471,7 +495,7 @@ var crimea=d3.csv.parse(stringTotal);
   y2.domain([d3.max(causes[causes.length - 1], function(d) { return d.y0 + d.y; }),0]);
 
 var xAxis = d3.svg.axis()
-    .scale(x)
+    .scale(x6)
     .tickFormat(d3.time.format("%m/%y"))
     .orient("bottom")
 
@@ -479,13 +503,19 @@ var yAxis = d3.svg.axis()
     .scale(y2)
     .orient("left");
 
+//var dateMini=new Date(2003,1,1,0,0,0,0);
+//var dateMaxi=new Date(2011,1,1,0,0,0,0);
+//alert(dateMini+" "+dateMaxi);
+dateMini.setMonth(dateMini.getMonth()-1);
+x6.domain([dateMini, dateMaxi]);
+
+
 svg.append("g")
       .attr("class", "x axis")
-
       //.attr("transform", "translate(0," + h + ")")
       .call(xAxis)
-      .selectAll("text")  
-            .style("display", "none");
+      .selectAll("text");
+           // .style("display", "none");
    
 
   svg.append("g")
@@ -513,7 +543,7 @@ var tip = d3.tip()
   .offset([-10, 0])
   .html(function(d) {
     //return "Date: <span style='color:red'>" + format2(d.x) + "</span>";
-    return "<span style='font: 15px sans-serif'>Date : " + format2(d.x) + "</span><br><span style='font: 15px sans-serif'>Competence : " + d.y + "</span>";
+    return "<span style='font: 15px sans-serif'>Date : " + format2(d.x) + "</span><br><span style='font: 15px sans-serif'>Value : " + d.y + "</span>";
   })
 
   svg.call(tip);
@@ -523,7 +553,7 @@ var tip = d3.tip()
       .data(Object)
     .enter().append("svg:rect")
     .attr("class", "bar")
-      .attr("x", function(d) { return x(d.x); })
+      .attr("x", function(d) { return x6(d.x); })
       .attr("y", function(d) { return -y(d.y0) - y(d.y); })
       .attr("height", function(d) { return y(d.y); })
       .attr("width", x.rangeBand())
@@ -562,6 +592,7 @@ var data = {};
       }
     });
 
+data=filterDB(data, [], [843576936], [], []); //Comps Only
 //maVariable=555;
    // var node = document.getElementById('node-id');
    // var repo=Array(); //Array of repository objects
@@ -781,10 +812,14 @@ var matchingRepoIndex=repo[idRepo].developers[idDev].repositories.indexOf(repo[i
 var competence=new Array();
 
 
+var dateDebut=new Date(2010,1,1,0,0,0,0);
+var dateFin=new Date(2012,1,1,0,0,0,0);
 
 for (var j=0; j<repo[idRepo].developers[idDev].score_times[parseInt(matchingRepoIndex)].length; j++) {
         stringCommitCompound[j]="date,Competence,Name\n";
+        var nbOccurences=0;
         competence[j]=0;
+        firstDateRead=1;
         if(typeof repo[idRepo].developers[idDev].score_times[parseInt(matchingRepoIndex)][j]!="undefined"){
         var matchingConcreteAptitudeIndex=idConcreteAptitudes.indexOf(repo[idRepo].developers[idDev].idConcreteAptitude[j]);
         
@@ -792,20 +827,29 @@ for (var j=0; j<repo[idRepo].developers[idDev].score_times[parseInt(matchingRepo
         for(var m=0;m<repo[idRepo].developers[idDev].score_times[parseInt(matchingRepoIndex)][j].length;m++){
         competence[j]=competence[j]+1;
         var fullDate=new Date(repo[idRepo].developers[idDev].score_times[parseInt(matchingRepoIndex)][j][m][0]*1000);
+        //document.write(fullDate+" "+dateDebut+" "+ dateFin+"<br>");
+        if(fullDate>dateDebut && fullDate<dateFin){
+          nbOccurences++;
+         // document.write("dedans<br>");
         var month=fullDate.getMonth()+1;
         var myDate=""+fullDate.getDate()+"-"+month+"-"+fullDate.getFullYear().toString().substr(2,2)+"";
         myDate=myDate.toString();
         stringCommitCompound[j]=stringCommitCompound[j]+myDate+","+competence[j]+"";
-        if(m==0){
+      //}
+        if(firstDateRead==1){
           
           stringCommitCompound[j]=stringCommitCompound[j]+","+concreteAptitudes[matchingConcreteAptitudeIndex].desc;
-        
+          firstDateRead=0;
         }
+        //if(fullDate>dateDebut && fullDate<dateFin){
         stringCommitCompound[j]=stringCommitCompound[j]+"\n";
+      }
         //jsonData.concreteAptitude[jsonData.concreteAptitude.length-1].commits[jsonData.concreteAptitude[jsonData.concreteAptitude.length-1].commits.length] = {commit:repo[idRepo].developers[idDev].score_times[parseInt(matchingRepoIndex)][j][m][0],modifications:repo[idRepo].developers[idDev].score_times[parseInt(matchingRepoIndex)][j][m][1]};
         
         }
-        
+        if(nbOccurences==0){
+          stringCommitCompound[j]=stringCommitCompound[j]+"0,0";
+        }
         }
         }
         else{

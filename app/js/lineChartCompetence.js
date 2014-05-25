@@ -74,6 +74,14 @@ var data = {};
       }
     });
 
+//data=filterDB(data, [], [], [21], []); //Comps Only
+/*for (var i=0; i<data.aptitude_expressions.length; i++) { //Process through each expression of concrete aptitudes
+    for (var j=0; j<data.aptitude_expressions[i].expressions.length; j++) { 
+      for(var k=0;k<data.aptitude_expressions[i].expressions[j].concrete_expressions.length;k++){
+           for(var m=0;m<data.aptitude_expressions[i].expressions[j].concrete_expressions[k].scores_times.length;m++){
+        document.write(data.aptitude_expressions[i].expressions[j].concrete_expressions[k].scores_times[m]+"<br>")
+
+      }}}}*/
 //maVariable=555;
    // var node = document.getElementById('node-id');
    // var repo=Array(); //Array of repository objects
@@ -266,7 +274,9 @@ var data = {};
 			// }
 		
 		// } 
-
+var dateDebut=new Date(2010,1,1,0,0,0,0);
+var dateFin=new Date(2012,1,1,0,0,0,0);
+var devToDelete=[24];
 
 			
 var competenceIdSelected=idCurrentCompetence;	  
@@ -283,18 +293,21 @@ var maxAtteint=0;
 var newDevelopper=0;
 var indexFound=0;
 var indexDevelopersRead=new Array();
+
 for (var i=0; i<data.aptitude_expressions.length; i++) { //Process through each expression of concrete aptitudes
 		for (var j=0; j<data.aptitude_expressions[i].expressions.length; j++) { 
 			if(competenceIdSelected==data.aptitude_expressions[i].expressions[j].id_concrete_aptitude){
 			for(var k=0;k<data.aptitude_expressions[i].expressions[j].concrete_expressions.length;k++){
 			
 				var idDevRead=data.aptitude_expressions[i].expressions[j].concrete_expressions[k].dev;
+			if(devIdDelete.indexOf(idDevRead)==-1){
 				if(indexDevelopersRead.indexOf(idDevRead)==-1 && maxAtteint==0){
 					indexDevelopersRead[indexDevelopersRead.length]=idDevRead;
 					
 					indexFound=indexDevelopersRead.length-1;
 					competence[indexFound]=0;
 					stringCommitCompound[indexFound]="date,Competence,Name\n";
+					var nbOccurences=0;
 					newDevelopper=1;
 					if(indexFound==4){maxAtteint=1;}
 				}
@@ -311,6 +324,8 @@ for (var i=0; i<data.aptitude_expressions.length; i++) { //Process through each 
 				var month=fullDate.getMonth()+1;
 				var myDate=""+fullDate.getDate()+"-"+month+"-"+fullDate.getFullYear().toString().substr(2,2)+"";
 				myDate=myDate.toString();
+				if(fullDate>dateDebut && fullDate<dateFin){
+					nbOccurences++;
 				stringCommitCompound[indexFound]=stringCommitCompound[indexFound]+myDate+","+competence[indexFound]+"";
 				if(newDevelopper==1){
 					
@@ -326,14 +341,17 @@ for (var i=0; i<data.aptitude_expressions.length; i++) { //Process through each 
 				
 				}
 				stringCommitCompound[indexFound]=stringCommitCompound[indexFound]+"\n";
+			}
 				}
+				if(nbOccurences==0){stringCommitCompound[indexFound]=stringCommitCompound[indexFound]+"0,0";}
 			}
 			}
 			}
 			}
-//for(var i=0;i<stringCommitCompound.length;++i){
-			//document.write("String["+i+"+]   "+stringCommitCompound[i]+"<br><br>");
-			//}
+			}
+for(var i=0;i<stringCommitCompound.length;++i){
+			//document.write(stringCommitCompound[i]+"<br><br>");
+			}
 
 			
 
@@ -412,6 +430,7 @@ for(var i=0;i<stringCommitCompound.length;++i){
 
 var parseInter=d3.csv.parse(stringCommitCompound[i]);
 if(parseInter[0].date!="0"){
+	//document.write("dedans");
 nameCompetence[nbData]=parseInter[0].Name;
 parseInter=parseInter.sort(function(a,b) { return parseDate(a.date) - parseDate(b.date) } );
 data[nbData]=parseInter;
