@@ -1237,4 +1237,3 @@ function filterDB(data, devs, comps, projs, dates){
   })
   return data;
 }
-

@@ -58,6 +58,7 @@ var w = 300,                            //width
     makePie(newData, ".pieProjs", w, h);
 
     devsData = adaptPieToLevel(devsData, 4);
+    console.log(devsData)
     makePie(devsData, ".pieDevs", w, h);
 
     var specProjData = getCompetenceRatioByRepo(dataJSON, idCurrentRepo);
@@ -166,7 +167,7 @@ arcs
             })
 
     .attr("text-anchor", "middle")                          
-        .text(function(d, i) { return Math.floor(data[i].value/getSum(data) * 100) + " %"; });        //get the label from our original data array
+        .text(function(d, i) { return Math.floor(d.value/getSum(data) * 100) + " %"; });        //get the label from our original data array
 
     }
 
