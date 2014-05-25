@@ -41,7 +41,7 @@ harmonyApp.config(['$routeProvider',
        }).
       when('/developers', {
         templateUrl: 'partials/developers.html',
-        controller: 'developersController'
+        controller: 'mainController'
        }).
       when('/developer', {
         templateUrl: 'partials/developer.html',
